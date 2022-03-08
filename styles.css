@@ -1,0 +1,161 @@
+body
+{
+    font-family:'segoe ui';
+
+}
+.container{
+    margin:auto;
+    width:90%;
+}
+.header
+{
+    margin: 35px 40px 10px 40px;
+}
+.logo
+{
+    display: inline-block;
+}
+.heading
+{
+    display: inline-block;
+    margin-left:20px;
+}
+.sub-heading
+{
+    margin:0;
+    margin : 0px 0px 0px 10px;
+    font-weight: lighter;
+    font-size:20px;
+
+}
+.heading h1 
+{
+    color:#01b0fc;
+    font-weight:350;
+    margin : 0px 0px 0px 10px;
+    font-size:37px;
+
+}
+.welcome-user
+{
+    float:right;
+    font-size:22px;
+    font-weight:lighter;
+    margin:0;
+}
+.welcome
+{
+    color:#01b0fc;
+    font-weight:350;
+    margin:inherit;
+    display: inline-block;
+}
+.username
+{
+    display: inline-block;
+    margin:inherit;
+    font-weight: inherit;
+}
+.img-andrew
+{
+    display:inline-block;
+    margin-bottom: -2px;
+}
+.header-seperator
+{
+    width:94%;
+    margin: 0px 40px 0px 40px;
+    border-top: 0.01px solid rgb(173, 173, 173,0.5);
+}
+
+.body-container
+{
+    width:1430px;
+}
+.side-navbar
+{
+    width:300px;
+    height:600px;
+    margin: 30px 0px 0px 40px;
+    display:inline-block;
+}
+.side-navbar h4
+{
+    margin:0;
+}
+.main-container
+{
+    display: inline-block;
+    width: 970px;
+}
+#alphabeticalSearch
+{
+    width:1000px;
+    margin-top:20px;
+}
+.alpha-button
+{
+    background-color:#01b0fc;
+    color:white;
+    border:1px solid white;
+    font-family:'segoe ui';
+    padding:6px;
+    width:36px;
+    
+}
+.search-keyword
+{
+    display:inline-block;
+    margin-top: 25px;
+}
+.search-label
+{
+    font-weight: 500;
+    margin-right:5px;
+}
+.search-input
+{
+    display:inline-block;
+    height:30px;
+    width: 215px;
+    margin-right:20px;
+}
+.reset-btn
+{
+    height:36px;
+    width:80px;
+    background-color: rgb(105,186,0);
+    color:white;
+    font-family: inherit;
+    padding-bottom: 3px;
+    border:none;
+}
+.filter-by
+{
+    display: inline-block;
+    margin-left:30px;
+}
+.filter-label
+{
+    font-weight: 500;
+    margin-right:5px;
+}
+.filter-input
+{
+    height:35px;
+    width: 145px;
+}
+.add-employee
+{
+    float:right;
+    margin-top: 25px;
+}
+.add-btn
+{
+    background-color:#01b0fc;
+    color:white;
+    font-family:'Segoe ui';
+    width: 125px;
+    height: 35px;
+    border:none;
+}

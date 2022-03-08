@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saketa Address Book</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo"><img  src="Images/saketa-logo.jpg"></div>
+            <div class="heading">
+                <h1>Employee Directory</h1>
+                <h3 class="sub-heading">The Ultimate People Directory Experience</h3>
+            </div>
+            <div class="welcome-user">
+                <h3 class="welcome">Welcome, </h3>
+                <h3 class="username">Andrew Philips</h3>
+                <img class="img-andrew" src="Images/andrew-philips.png">
+            </div>
+        </div>
+        <div class="header-seperator"></div>
+        <div class="body-container">
+            <div class="side-navbar">
+                <h4>Departments</h4>
+                <ul class="departments-list">
+    
+                </ul>
+                <h4>Offices</h4>
+                <ul class="offices-list">
+    
+                </ul>
+                <h4>Job Titles</h4>
+                <ul class="jobtitles-list">
+    
+                </ul>
+            </div>
+            <div class="main-container">
+                <div class="search">
+                    <div id="alphabeticalSearch">
+                        <script>
+                            let button = document.createElement("button");
+                            button.innerHTML ="<span class='fas fa-user'></span>";
+                            button.setAttribute("class","alpha-button");
+                            document.getElementById("alphabeticalSearch").appendChild(button);
+                        
+                            for(let i=65;i<91;i++)
+                            {
+                               createButtonByAsciiCode(i);
+                            }
+                            function createButtonByAsciiCode(ascii_code)
+                            {
+                                let button = document.createElement("button");
+                                button.innerHTML = String.fromCharCode(ascii_code);
+                                button.setAttribute("class","alpha-button");
+                                document.getElementById("alphabeticalSearch").appendChild(button);
+                            }
+                            
+    
+                        </script>
+                    </div>
+                    <div class="search-keyword">
+                        <span class="search-label">Search</span>
+                        <input class="search-input" type="text" placeholder="Enter any keyword">
+                        <button class="reset-btn" onclick="resetToDefaults()">Clear</button>
+                    </div>
+                    <div class="filter-by">
+                        <span class="filter-label">Filter by</span>
+                        <select class="filter-input" name="filter">
+                            <option value="preferredName">Preferred Name</option>
+                            <option value="firstName" >First name</option>
+                            <option value="lastName">Last Name</option>
+                            <option value="jobTitle" >Job Title</option>
+                            <option value="office" >Office</option>
+                            <option value="dept" >Department</option>
+                            <option value="phone">Phone Number</option>  
+                            <option value="skypeId">Skype Id</option>
+                            
+                        </select>
+                    </div>
+                    <div class="add-employee">
+                        <button class="add-btn" onclick="displayPopup()">Add Employee</button>
+                    </div>
+                </div>
+                <div class="note">
+                    <h5><b>Note:</b> Please use advanced filter options to refine your results.</h5>
+                </div>
+                <div class="employee-list">
+                    <p>Iam main container</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function resetToDefaults()
+        {
+            document.querySelector(".search-input").value='';
+        }
+    </script>
+</body>
+</html>
