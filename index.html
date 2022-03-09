@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Saketa Address Book</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/solid.css">
 </head>
 <body>
     <div class="container">
@@ -43,8 +43,9 @@
                     <div id="alphabeticalSearch">
                         <script>
                             let button = document.createElement("button");
-                            button.innerHTML ="<span class='fas fa-user'></span>";
+                            button.innerHTML ="<span>&#xF007</span>";
                             button.setAttribute("class","alpha-button");
+                            button.setAttribute("id","personButton");
                             document.getElementById("alphabeticalSearch").appendChild(button);
                         
                             for(let i=65;i<91;i++)
@@ -63,9 +64,11 @@
                         </script>
                     </div>
                     <div class="search-keyword">
-                        <span class="search-label">Search</span>
-                        <input class="search-input" type="text" placeholder="Enter any keyword">
-                        <button class="reset-btn" onclick="resetToDefaults()">Clear</button>
+                        <form>
+                            <span class="search-label">Search</span>
+                            <input type="text" class="search-input" placeholder="&#xF002; Enter any keyword" >
+                            <input type="reset" class="reset-btn" value="Clear">
+                        </form>
                     </div>
                     <div class="filter-by">
                         <span class="filter-label">Filter by</span>
@@ -81,12 +84,13 @@
                             
                         </select>
                     </div>
+                    
                     <div class="add-employee">
-                        <button class="add-btn" onclick="displayPopup()">Add Employee</button>
+                        <button class="emp-btn" onclick="displayPopup()">Add Employee</button>
                     </div>
                 </div>
-                <div class="note">
-                    <h5><b>Note:</b> Please use advanced filter options to refine your results.</h5>
+                <div >
+                    <h5><b>Note:</b> <span class="note">Please use advanced filter options to refine your results.</span></h5>
                 </div>
                 <div class="employee-list">
                     <p>Iam main container</p>
@@ -94,10 +98,50 @@
             </div>
         </div>
     </div>
+    <div class="popup">
+        <form>
+            <div class="left">
+                <span>First Name: </span>
+                <input type="text" name="fname" placeholder="Enter first name"  required>
+                <span>Last Name: </span>
+                <input type="text" name="lname" placeholder="Enter last name"  required>
+                <span>Email Id: </span>
+                <input type="email" name="email" placeholder="Enter email id"  required>
+                <span>Job Title: </span>
+                <input type="text" name="jobtitle" placeholder="Enter Job title"  required>
+            </div>
+            <div class="right">
+                <span>Office: </span>
+                <input type="text" name="office" placeholder="Enter Office"  required>
+                <span>Department: </span>
+                <input type="text" name="dept" placeholder="Enter department"  required>
+                <span>Contact Number: </span>
+                <input type="text" name="phone" placeholder="Enter contact number"  required>
+                <span>Skype id: </span>
+                <input type="text" name="skypeid" placeholder="Enter skype id"  required>
+            </div>
+            <div class="buttons">
+                <input type="submit" class="add-btn" value="Add-Employee">
+                <input type="reset" onclick="closePopup()" class="cancel-btn" value="Cancel">
+            </div>
+        </form>
+
+    </div>
+    
     <script>
-        function resetToDefaults()
+        function displayPopup()
         {
-            document.querySelector(".search-input").value='';
+            const popup = document.querySelector(".popup");
+            if(popup.style.display != "block")
+                popup.style.display = "block";
+            else
+                popup.style.display="none";
+            
+        }
+        function closePopup()
+        {
+            document.querySelector(".popup").style.display = "none";
+
         }
     </script>
 </body>
