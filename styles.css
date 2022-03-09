@@ -3,6 +3,10 @@ body
     font-family:'segoe ui';
 
 }
+ul
+{
+    list-style-type: none;
+}
 .container{
     margin:auto;
     width:90%;
@@ -82,6 +86,29 @@ body
 .side-navbar h4
 {
     margin:0;
+}
+.departments-list
+{
+    margin: 0px 0px 35px 0px;
+    padding: 5px;
+}
+.offices-list
+{
+    margin: 0px 0px 35px 0px;
+    padding: 5px;
+}
+.jobtitles-list
+{
+    margin: 0px 0px 5px 0px;
+    padding: 5px;
+}
+.view-more
+{
+    text-decoration:none;
+    color:#01b0fc;
+    font-size:14px;
+    font-weight: 500;
+    margin-left:3px;
 }
 .main-container
 {
