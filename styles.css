@@ -138,6 +138,7 @@ ul
     font-family: 'Font Awesome 5 Free';
     padding-bottom: 7px;
     padding-top: 8.5px;
+    background-color: #69BA00;
 }
 .search-keyword
 {
@@ -264,7 +265,7 @@ ul
     display: none;
     width: 440px;
     height:350px;
-    margin: -29% 0% 0% 61%;
+    margin: -31% 0% 0% 61%;
     padding:10px;
     background-color: #01b0fc;
 }
