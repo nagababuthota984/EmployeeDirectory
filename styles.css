@@ -13,7 +13,7 @@ ul
 }
 .header
 {
-    margin: 35px 40px 10px 40px;
+    margin: 35px auto 10px auto;
     width:1272px;
 }
 .logo
@@ -69,19 +69,20 @@ ul
 .header-seperator
 {
     width:1272px;
-    margin: 0px 40px 0px 40px;
+    margin: 0px auto 0px auto;
     border-top: 0.01px solid rgb(173, 173, 173,0.5);
 }
 
 .body-container
 {
-    width:1430px;
+    width:1272px;
+    margin:auto;
 }
 .side-navbar
 {
     width:300px;
     height:600px;
-    margin: 40px 0px 0px 40px;
+    margin: 40px 0px 0px 0px;
     float:left;
 }
 .side-navbar h4
