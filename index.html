@@ -57,19 +57,12 @@
                         <script>
                             let button = document.createElement("button");
                             button.innerHTML ="<span>&#xF007</span>";
-                            button.setAttribute("class","alpha-button");
-                            button.setAttribute("id","personButton");
+                            button.className="alpha-button";
+                            button.id="personButton";
                             document.getElementById("alphabeticalSearch").appendChild(button);
                             for(let i=65;i<91;i++)
                             {
                                createButtonByAsciiCode(i);
-                            }
-                            function createButtonByAsciiCode(ascii_code)
-                            {
-                                let button = document.createElement("button");
-                                button.innerHTML = String.fromCharCode(ascii_code);
-                                button.setAttribute("class","alpha-button");
-                                document.getElementById("alphabeticalSearch").appendChild(button);
                             }
                         </script>
                     </div>
@@ -103,7 +96,9 @@
                     <h5><b>Note:</b> <span class="note">Please use advanced filter options to refine your results.</span></h5>
                 </div>
                 <div class="employee-list">
-                    <p>Iam main container</p>
+                    <script>
+                        loadEmployees();
+                    </script>
                 </div>
             </div>
         </div>

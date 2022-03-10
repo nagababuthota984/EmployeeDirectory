@@ -14,6 +14,7 @@ ul
 .header
 {
     margin: 35px 40px 10px 40px;
+    width:1272px;
 }
 .logo
 {
@@ -67,7 +68,7 @@ ul
 }
 .header-seperator
 {
-    width:94%;
+    width:1272px;
     margin: 0px 40px 0px 40px;
     border-top: 0.01px solid rgb(173, 173, 173,0.5);
 }
@@ -205,9 +206,57 @@ ul
 }
 .employee-list
 {
-    width: 970px;
+    width: 960px;
     border: 0.1px solid rgb(128, 128, 128,0.3);
     height: 400px;
+    padding: 20px 0px 0px 5px;
+
+}
+.employee-card
+{
+    width: 206px;
+    background-color: rgb(223, 222, 222);
+    height: 60px;
+    padding: 10px;
+    display: inline-block;
+    margin: 0px 0px 10px 10px;
+}
+.emp-img
+{
+    display: inline-block;
+
+}
+.emp-img img
+{
+    
+    height: 60px;
+    width: 60px;
+}
+.emp-details
+{
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 10px;
+}
+.emp-name
+{
+    margin: -3px 0px 2px 0px;
+    color:rgb(73, 73, 73);
+
+}
+.employee-card p
+{
+    margin: 0;
+    font-size:12px;
+    color:rgb(100, 100, 100);
+
+}
+.extras
+{
+    font-family: 'Font Awesome 5 Free';
+    font-size: 12px;
+    margin: 2px 0px 0px 0px;
+    color: rgb(100, 100, 100);
 }
 .popup
 {
@@ -274,5 +323,4 @@ ul
     height: 35px;
     border:none;
     font-weight:600;
-
 }
