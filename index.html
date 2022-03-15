@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/solid.css">
     <script src="index.js"></script>
+    
+
+
 </head>
 <body>
     <div class="container">
@@ -28,27 +31,14 @@
             <div class="side-navbar">
                 <h4>Departments</h4>
                 <ul class="departments-list">
-                    <li>IT (21)</li>
-                    <li>Human Resources (2)</li>
-                    <li>MD (1)</li>
-                    <li>Sales (4)</li>
-
                 </ul>
                 <h4>Offices</h4>
                 <ul class="offices-list">
-                    <li>Seattle (1)</li>
-                    <li>India (1)</li>
-    
                 </ul>
                 <h4>Job Titles</h4>
                 <ul class="jobtitles-list">
-                    <li>Sharepoint Practice Head (1)</li>
-                    <li>Dot Net Development Lead (1)</li>
-                    <li>Recruiting Expert (1)</li>
-                    <li>Bi Developer (1)</li>
-                    <li>Business Analyst (1)</li>
-    
                 </ul>
+                <script>loadFilters();</script>
                 <a href="#" class="view-more">view more</a>
             </div>
             <div class="main-container">
@@ -59,6 +49,7 @@
                             button.innerHTML ="<span>&#xF007</span>";
                             button.className="alpha-button";
                             button.id="personButton";
+                            button.onclick="showAllEmployees()";
                             document.getElementById("alphabeticalSearch").appendChild(button);
                             for(let i=65;i<91;i++)
                             {
@@ -92,8 +83,8 @@
                         <button class="emp-btn" onclick="displayPopup()">Add Employee</button>
                     </div>
                 </div>
-                <div >
-                    <h5><b>Note:</b> <span class="note">Please use advanced filter options to refine your results.</span></h5>
+                <div class="note">
+                    <span><b>Note:</b> Please use advanced filter options to refine your results.</span>
                 </div>
                 <div class="employee-list">
                     <script>
@@ -104,30 +95,38 @@
         </div>
     </div>
     <div class="popup">
-        <form>
+        <div class="add-emp-heading"><h2>New Employee Details</h2></div>
+        <div class="seperator"></div>
+        <form class="add-emp-form">
             <div class="left">
-                <span>First Name: </span>
-                <input type="text" name="fname" placeholder="Enter first name"  required>
-                <span>Last Name: </span>
-                <input type="text" name="lname" placeholder="Enter last name"  required>
-                <span>Email Id: </span>
-                <input type="email" name="email" placeholder="Enter email id"  required>
-                <span>Job Title: </span>
-                <input type="text" name="jobtitle" placeholder="Enter Job title"  required>
+                <input type="text"  id="fname" name="fname" placeholder="First name"  >
+                <div class="error" id="fnameError"><h7>First name shouldn't contain digits or special characters</h7></div>
+                <input type="text"  id="office" name="office" placeholder="Office"  >
+                <div class="error" id="officeError"><h7>Office shouldn't contain digits or special characters</h7></div>
+
+                
+                <input type="email"  id="email" name="email" placeholder="Email id"  >
+                <div class="error" id="emailError"><h7>Invalid Email format</h7></div>
+                <input type="text" id="jobtitle" name="jobtitle" placeholder="Job title"  >
+                <div class="error" id="jobtitleError"><h7>Job Title shouldn't contain digits or special characters</h7></div>
+
             </div>
             <div class="right">
-                <span>Office: </span>
-                <input type="text" name="office" placeholder="Enter Office"  required>
-                <span>Department: </span>
-                <input type="text" name="dept" placeholder="Enter department"  required>
-                <span>Contact Number: </span>
-                <input type="text" name="phone" placeholder="Enter contact number"  required>
-                <span>Skype id: </span>
-                <input type="text" name="skypeid" placeholder="Enter skype id"  required>
+                <input type="text" id="lname" name="lname" placeholder="Last name"  >
+                <div class="error" id="lnameError"><h7>Last name shouldn't contain digits or special characters</h7></div>
+                <input type="text" id="dept" name="dept" placeholder="Department"  >
+                <div class="error" id="deptError"><h7>Invalid Department name.</h7></div>
+
+                <input type="text" id="phone" name="phone" placeholder="Contact number"  >
+                <div class="error" id="phoneError"><h7>Make sure that you entered correct contact number.</h7></div>
+
+                <input type="text"  id="skypeid" name="skypeid" placeholder="Skype id"  >
+                <div class="error" id="skypeidError"><h7>SkypeId shouldn't contain special characters</h7></div>
+
             </div>
             <div class="buttons">
-                <input type="submit" class="add-btn" value="Add-Employee">
-                <input type="reset" onclick="closePopup()" class="cancel-btn" value="Cancel">
+                <button type="button" class="add-btn" onclick="addEmployee()" >Add Employee</button>
+                <button type="button" onclick="closePopup()" class="cancel-btn" >Cancel</button>
             </div>
         </form>
 
