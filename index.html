@@ -8,9 +8,6 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/solid.css">
     <script src="index.js"></script>
-    
-
-
 </head>
 <body>
     <div class="container">
@@ -49,7 +46,7 @@
                             button.innerHTML ="<span>&#xF007</span>";
                             button.className="alpha-button";
                             button.id="personButton";
-                            button.onclick="showAllEmployees()";
+                            button.setAttribute("onclick","handlePersonButton()");
                             document.getElementById("alphabeticalSearch").appendChild(button);
                             for(let i=65;i<91;i++)
                             {
@@ -60,19 +57,19 @@
                     <div class="search-keyword">
                         <form>
                             <span class="search-label">Search</span>
-                            <input type="text" class="search-input" placeholder="&#xF002; Enter any keyword" >
+                            <input type="text" id="search-input" onkeyup="applySearchFilter()" class="search-input" placeholder="&#xF002; Enter any keyword" >
                             <input type="reset" class="reset-btn" value="Clear">
                         </form>
                     </div>
                     <div class="filter-by">
                         <span class="filter-label">Filter by</span>
-                        <select class="filter-input" name="filter">
+                        <select onchange="applySearchFilter()" id="filter-input" class="filter-input" name="filter">
                             <option value="preferredName">Preferred Name</option>
                             <option value="firstName" >First name</option>
                             <option value="lastName">Last Name</option>
                             <option value="jobTitle" >Job Title</option>
                             <option value="office" >Office</option>
-                            <option value="dept" >Department</option>
+                            <option value="department" >Department</option>
                             <option value="phone">Phone Number</option>  
                             <option value="skypeId">Skype Id</option>
                             
@@ -88,7 +85,7 @@
                 </div>
                 <div class="employee-list">
                     <script>
-                        loadEmployees();
+                        loadAllEmployees();
                     </script>
                 </div>
             </div>
@@ -103,35 +100,26 @@
                 <div class="error" id="fnameError"><h7>First name shouldn't contain digits or special characters</h7></div>
                 <input type="text"  id="office" name="office" placeholder="Office"  >
                 <div class="error" id="officeError"><h7>Office shouldn't contain digits or special characters</h7></div>
-
-                
                 <input type="email"  id="email" name="email" placeholder="Email id"  >
                 <div class="error" id="emailError"><h7>Invalid Email format</h7></div>
                 <input type="text" id="jobtitle" name="jobtitle" placeholder="Job title"  >
                 <div class="error" id="jobtitleError"><h7>Job Title shouldn't contain digits or special characters</h7></div>
-
             </div>
             <div class="right">
                 <input type="text" id="lname" name="lname" placeholder="Last name"  >
                 <div class="error" id="lnameError"><h7>Last name shouldn't contain digits or special characters</h7></div>
                 <input type="text" id="dept" name="dept" placeholder="Department"  >
                 <div class="error" id="deptError"><h7>Invalid Department name.</h7></div>
-
                 <input type="text" id="phone" name="phone" placeholder="Contact number"  >
                 <div class="error" id="phoneError"><h7>Make sure that you entered correct contact number.</h7></div>
-
                 <input type="text"  id="skypeid" name="skypeid" placeholder="Skype id"  >
                 <div class="error" id="skypeidError"><h7>SkypeId shouldn't contain special characters</h7></div>
-
             </div>
             <div class="buttons">
                 <button type="button" class="add-btn" onclick="addEmployee()" >Add Employee</button>
                 <button type="button" onclick="closePopup()" class="cancel-btn" >Cancel</button>
             </div>
         </form>
-
     </div>
-    
-    
 </body>
 </html>

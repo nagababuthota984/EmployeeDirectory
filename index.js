@@ -1,47 +1,76 @@
 
 let employeeData = [
     {
-        Name:"Anthony Morris",
+        firstName:"Anthony",
+        lastName: "Morris",
+        preferredName:"anthonymorris",
         jobTitle:"Sharepoint Practice Head",
-        department:"IT Department"
+        department:"IT Department",
+        office:"India"
     },
     {
-        Name:"Helen Jimmerman",
+        firstName:"Helen",
+        lastName: "Jimmerman",
+        preferredName:"helenjimmerman",
         jobTitle:"Operations Manager",
-        department:"IT Department"
+        department:"IT Department",
+        office:"India"
     },
     {
-        Name:"Jonathan Smith",
+        firstName:"Jonathan",
+        lastName: "Smith",
+        preferredName:"jonathansmith",
         jobTitle:"Product Manager",
-        department:"IT Department"
+        department:"IT Department",
+        office:"India"
     },
     {
-        Name:"Tami Hopkins",
+        firstName:"Tami",
+        lastName: "Hopkins",
+        preferredName:"tamihopkins",
         jobTitle:"Lead Engineer - Dot Net",
-        department:"IT Department"
+        department:"IT Department",
+        office:"India"
     },
     {
-        Name:"Franklin Humark",
+        firstName:"Franklin",
+        lastName: "Humark",
+        preferredName:"franklinhumark",
         jobTitle:"Network Engineer",
-        department:"IT Department"
+        department:"IT Department",
+        office:"India"
     },
     {
-        Name:"Angelina Bailey",
+        firstName:"Angelina",
+        lastName: "Bailey",
+        preferredName:"angelinabailey",
         jobTitle:"Talent Magnet Jr.",
-        department:"HR Department"
+        department:"HR Department",
+        office:"India"
     },
     {
-        Name:"Robert Mitchell",
+        firstName:"Robert",
+        lastName: "Mitchell",
+        preferredName:"robertmitchell",
         jobTitle:"Software Engineer",
-        department:"IT Department"
+        department:"IT Department",
+        office:"India"
     },
     {
-        Name:"Olivia Watson",
+        firstName:"Olivia",
+        lastName: "Watson",
+        preferredName:"oliviawatson",
         jobTitle:"UI Designer",
-        department:"UX Department"
+        department:"UX Department",
+        office:"Seattle"
     }
 ]
-
+let filteredEmployees = [];
+let currentActiveButton='';
+let advFilterName = '';
+let advFilterCategory = '';
+let searchKeyword='';
+let filterByCategory='';
 let jobTitles = {
         SharepointPracticeHead:1,
         OperationsManager:1,
@@ -69,7 +98,6 @@ function displayPopup()
      {
         popup.style.display="none";  
         document.querySelector(".container").style.filter="none";     
-
      }   
     else
     {
@@ -83,20 +111,168 @@ function closePopup()
     document.querySelector(".container").style.filter="none";     
     document.querySelector(".add-emp-form").reset();
     document.querySelector(".popup").style.display = "none";
-    let leftFormFields = document.getElementById("left").children;
-    for(let element of leftFormFields)
+    leftformFields = document.querySelector(".left").children;
+    rightformFields = document.querySelector(".right").children;
+    for(let element of leftformFields)
     {
-        console.log(element);
-        element.style.borderColor="gray";
-        getElementById(element.id+"Error").display="none";
+        removeErrorMsg(element);
     }
+    for(let element of rightformFields)
+    {
+        removeErrorMsg(element);
+    }
+}
+function removeErrorMsg(element)
+{
+    element.style.borderColor="gray";
+    if(element.id.includes("Error"))
+        element.style.display="none";
 }
 function createButtonByAsciiCode(ascii_code)
 {
     let button = document.createElement("button");
     button.innerHTML = String.fromCharCode(ascii_code);
-    button.setAttribute("class","alpha-button");
+    button.id = String.fromCharCode(ascii_code);
+    button.className = "alpha-button";
+    button.setAttribute("onclick",`filterEmployeesByAlphabet("${String.fromCharCode(ascii_code)}")`);
     document.getElementById("alphabeticalSearch").appendChild(button);
+}
+function filterEmployeesByAlphabet(charOnButton)
+{
+    highlightClickedButton(charOnButton);
+    for(const employee of employeeData)
+    {
+        if(advFilterName!=''&& advFilterCategory!='')
+        {
+            if((employee[advFilterCategory].toLowerCase()).includes(advFilterName.toLowerCase()) && (employee.firstName[0].toLowerCase() == currentActiveButton.toLowerCase()))
+            {
+                filteredEmployees.push(employee);
+            }
+        }
+        else 
+        {
+            if(employee.firstName[0].toLowerCase()==charOnButton.toLowerCase())
+            filteredEmployees.push(employee);
+        }
+    }
+    displayEmployees(filteredEmployees);
+    filteredEmployees=[];
+
+}
+function handlePersonButton()
+{
+    advFilterName='';
+    advFilterCategory='';
+    filteredEmployees=[];
+    deColourPersonButton();
+}
+function deColourPersonButton()
+{
+    loadAllEmployees();
+    deColourAllButtons();
+    currentActiveButton='';
+    
+    let btn = document.getElementById("personButton");
+    if (btn.style.backgroundColor!="white") {
+        btn.style.borderColor="#01b0fc";
+        btn.style.backgroundColor="white";
+        btn.style.color="#01b0fc";
+    }
+    else
+    {
+        button.style.backgroundColor="#01b0fc";
+        button.style.color="white";
+        button.style.border = "1px solid white";
+    }
+}
+function highlightClickedButton(btnID)
+{
+    deColourPersonButton();
+    deColourAllButtons();
+    let btn = document.getElementById(btnID);
+    btn.style.borderColor="#01b0fc";
+    btn.style.backgroundColor="white";
+    btn.style.color="#01b0fc";
+    currentActiveButton=btnID.toLowerCase();
+}
+function deColourAllButtons()
+{
+    for(let button of document.getElementsByClassName("alpha-button"))
+    {
+        button.style.backgroundColor="#01b0fc";
+        button.style.color="white";
+        button.style.border = "1px solid white";
+    }
+}
+function applyAdvFilter(filter)
+{
+    filteredEmployees=[];
+    advFilterName = filter.split('-')[0].toLowerCase();
+    advFilterCategory = filter.split('-')[1];
+    for(let employee of employeeData)
+    {
+        if (currentActiveButton!='') {
+            if((employee[advFilterCategory].toLowerCase()).includes(advFilterName) && (employee.firstName[0].toLowerCase() == currentActiveButton))
+            {
+                filteredEmployees.push(employee);
+            }
+        }
+        else
+        {
+            if(employee[advFilterCategory].toLowerCase().includes(advFilterName.toLowerCase()))
+                filteredEmployees.push(employee);
+        }
+    }
+    displayEmployees(filteredEmployees);
+    
+}
+function applySearchFilter()
+{
+    filteredEmployees=[];
+    searchKeyword = document.getElementById("search-input").value;
+    filterByCategory = document.getElementById("filter-input").value;
+    if(searchKeyword!='')
+    {
+        for(let employee of employeeData)
+        {
+            if (currentActiveButton!='' && advFilterCategory!='' && advFilterName!='') 
+            {
+                if((employee[advFilterCategory].toLowerCase()).includes(advFilterName) && (employee.firstName[0].toLowerCase() == currentActiveButton) && (employee[filterByCategory].toLowerCase()).includes(searchKeyword.toLowerCase()))
+                {
+                    filteredEmployees.push(employee);
+                }
+            }
+            else if(advFilterCategory!='' && advFilterName!='')
+            {
+                    if (employee[advFilterCategory].toLowerCase().includes(advFilterName) && (employee[filterByCategory].toLowerCase()).includes(searchKeyword.toLowerCase()))
+                    {
+                        filteredEmployees.push(employee);
+                    }
+            }
+            else if(currentActiveButton!='')
+            {
+                if ((employee.firstName[0].toLowerCase() == currentActiveButton) && (employee[filterByCategory].toLowerCase()).includes(searchKeyword.toLowerCase())) 
+                {
+                    filteredEmployees.push(employee);
+                }
+            }
+            else
+            {
+                if((employee[filterByCategory].toLowerCase()).includes(searchKeyword.toLowerCase()))
+                {
+                    filteredEmployees.push(employee);
+                }
+            }
+        }
+        displayEmployees(filteredEmployees);
+    }
+    else
+    {
+        if(filteredEmployees.length==0)
+            loadAllEmployees();
+        else
+            displayEmployees(filteredEmployees);
+    }
 }
 function loadFilters()
 {
@@ -104,21 +280,21 @@ function loadFilters()
     {
         let deptDiv = document.querySelector(".departments-list");
         let dept = document.createElement("li");
-        dept.innerHTML = `<a href="#">${deptName} (${departments[deptName]})</a>`;
+        dept.innerHTML = `<a onclick=applyAdvFilter("${deptName}-department")>${deptName} (${departments[deptName]})</a>`;
         deptDiv.appendChild(dept);
     }
     for(let ofcName in offices)
     {
         let ofcDiv = document.querySelector(".offices-list");
         let ofc = document.createElement("li");
-        ofc.innerHTML = `<a href="#">${ofcName} (${offices[ofcName]})</a>`;
+        ofc.innerHTML = `<a  onclick=applyAdvFilter("${ofcName}-office")>${ofcName} (${offices[ofcName]})</a>`;
         ofcDiv.appendChild(ofc);
     }
     for(let jobName in jobTitles)
     {
         let jobsDiv = document.querySelector(".jobtitles-list");
         let job = document.createElement("li");
-        job.innerHTML = `<a href="#">${jobName} (${jobTitles[jobName]})</a>`;
+        job.innerHTML = `<a  onclick=applyAdvFilter("${jobName}-jobTitle")>${jobName} (${jobTitles[jobName]})</a>`;
         jobsDiv.appendChild(job);
     }
 }
@@ -195,20 +371,24 @@ function validateEmployeeDetails()
         }
     }
 }
-
-function loadEmployees()
+function loadAllEmployees()
 {
-    for(let employee of employeeData)
+   displayEmployees(employeeData);
+}
+function displayEmployees(data)
+{
+    document.querySelector(".employee-list").innerHTML='';
+    for(let employee of data)
     {
         let employeeCard = document.createElement("div");
         let imageDiv = document.createElement("div");
         let detailsDiv = document.createElement("div");
         employeeCard.className = "employee-card";
         imageDiv.className = "emp-img";
-        imageDiv.innerHTML=`<img src='Images/${employee.Name.trim().toLowerCase().replace(' ', '-')}.png'>`;
+        imageDiv.innerHTML=`<img src='Images/${employee.firstName.toLowerCase()}-${employee.lastName.toLowerCase()}.png'>`;
         employeeCard.appendChild(imageDiv);
         detailsDiv.className = "emp-details";
-        detailsDiv.innerHTML = `<h5 class='emp-name'>${employee.Name}</h5><p class='emp-jobtitle'>${employee.jobTitle}</p><p class='emp-dept'>${employee.department}</p><h6 class='extras'>&#xf098;&nbsp &#xf0e0;&nbsp &#xf075;&nbsp &#xf005;&nbsp &#xf004;</h6>`;
+        detailsDiv.innerHTML = `<h5 class='emp-name'>${employee.firstName} ${employee.lastName}</h5><p class='emp-jobtitle'>${employee.jobTitle}</p><p class='emp-dept'>${employee.department}</p><h6 class='extras'>&#xf098;&nbsp &#xf0e0;&nbsp &#xf075;&nbsp &#xf005;&nbsp &#xf004;</h6>`;
         employeeCard.appendChild(detailsDiv);
         document.querySelector(".employee-list").appendChild(employeeCard);
     }
