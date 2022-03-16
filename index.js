@@ -67,8 +67,8 @@ let employeeData = [
 ]
 let filteredEmployees = [];
 let currentActiveButton='';
-let advFilterName = '';
-let advFilterCategory = '';
+let generalFilterName = '';
+let generalFilterCategory = '';
 let searchKeyword='';
 let filterByCategory='';
 let jobTitles = {
@@ -142,9 +142,9 @@ function filterEmployeesByAlphabet(charOnButton)
     highlightClickedButton(charOnButton);
     for(const employee of employeeData)
     {
-        if(advFilterName!=''&& advFilterCategory!='')
+        if(generalFilterName!=''&& generalFilterCategory!='')
         {
-            if((employee[advFilterCategory].toLowerCase()).includes(advFilterName.toLowerCase()) && (employee.firstName[0].toLowerCase() == currentActiveButton.toLowerCase()))
+            if((employee[generalFilterCategory].toLowerCase()).includes(generalFilterName.toLowerCase()) && (employee.firstName[0].toLowerCase() == currentActiveButton.toLowerCase()))
             {
                 filteredEmployees.push(employee);
             }
@@ -161,8 +161,8 @@ function filterEmployeesByAlphabet(charOnButton)
 }
 function handlePersonButton()
 {
-    advFilterName='';
-    advFilterCategory='';
+    generalFilterName='';
+    generalFilterCategory='';
     filteredEmployees=[];
     deColourPersonButton();
 }
@@ -204,47 +204,47 @@ function deColourAllButtons()
         button.style.border = "1px solid white";
     }
 }
-function applyAdvFilter(filter)
+function applyGeneralFilter(filter)
 {
-    filteredEmployees=[];
-    advFilterName = filter.split('-')[0].toLowerCase();
-    advFilterCategory = filter.split('-')[1];
+    generalFilterName = filter.split('-')[0].toLowerCase();
+    generalFilterCategory = filter.split('-')[1];
     for(let employee of employeeData)
     {
         if (currentActiveButton!='') {
-            if((employee[advFilterCategory].toLowerCase()).includes(advFilterName) && (employee.firstName[0].toLowerCase() == currentActiveButton))
+            if((employee[generalFilterCategory].toLowerCase()).includes(generalFilterName) && (employee.firstName[0].toLowerCase() == currentActiveButton))
             {
                 filteredEmployees.push(employee);
             }
         }
         else
         {
-            if(employee[advFilterCategory].toLowerCase().includes(advFilterName.toLowerCase()))
+            if(employee[generalFilterCategory].toLowerCase().includes(generalFilterName.toLowerCase()))
                 filteredEmployees.push(employee);
         }
     }
     displayEmployees(filteredEmployees);
+    filteredEmployees=[];
+
     
 }
 function applySearchFilter()
 {
-    filteredEmployees=[];
     searchKeyword = document.getElementById("search-input").value;
     filterByCategory = document.getElementById("filter-input").value;
     if(searchKeyword!='')
     {
         for(let employee of employeeData)
         {
-            if (currentActiveButton!='' && advFilterCategory!='' && advFilterName!='') 
+            if (currentActiveButton!='' && generalFilterCategory!='' && generalFilterName!='') 
             {
-                if((employee[advFilterCategory].toLowerCase()).includes(advFilterName) && (employee.firstName[0].toLowerCase() == currentActiveButton) && (employee[filterByCategory].toLowerCase()).includes(searchKeyword.toLowerCase()))
+                if((employee[generalFilterCategory].toLowerCase()).includes(generalFilterName) && (employee.firstName[0].toLowerCase() == currentActiveButton) && (employee[filterByCategory].toLowerCase()).includes(searchKeyword.toLowerCase()))
                 {
                     filteredEmployees.push(employee);
                 }
             }
-            else if(advFilterCategory!='' && advFilterName!='')
+            else if(generalFilterCategory!='' && generalFilterName!='')
             {
-                    if (employee[advFilterCategory].toLowerCase().includes(advFilterName) && (employee[filterByCategory].toLowerCase()).includes(searchKeyword.toLowerCase()))
+                    if (employee[generalFilterCategory].toLowerCase().includes(generalFilterName) && (employee[filterByCategory].toLowerCase()).includes(searchKeyword.toLowerCase()))
                     {
                         filteredEmployees.push(employee);
                     }
@@ -265,6 +265,8 @@ function applySearchFilter()
             }
         }
         displayEmployees(filteredEmployees);
+        filteredEmployees=[];
+
     }
     else
     {
@@ -280,21 +282,21 @@ function loadFilters()
     {
         let deptDiv = document.querySelector(".departments-list");
         let dept = document.createElement("li");
-        dept.innerHTML = `<a onclick=applyAdvFilter("${deptName}-department")>${deptName} (${departments[deptName]})</a>`;
+        dept.innerHTML = `<a onclick=applyGeneralFilter("${deptName}-department")>${deptName} (${departments[deptName]})</a>`;
         deptDiv.appendChild(dept);
     }
     for(let ofcName in offices)
     {
         let ofcDiv = document.querySelector(".offices-list");
         let ofc = document.createElement("li");
-        ofc.innerHTML = `<a  onclick=applyAdvFilter("${ofcName}-office")>${ofcName} (${offices[ofcName]})</a>`;
+        ofc.innerHTML = `<a  onclick=applyGeneralFilter("${ofcName}-office")>${ofcName} (${offices[ofcName]})</a>`;
         ofcDiv.appendChild(ofc);
     }
     for(let jobName in jobTitles)
     {
         let jobsDiv = document.querySelector(".jobtitles-list");
         let job = document.createElement("li");
-        job.innerHTML = `<a  onclick=applyAdvFilter("${jobName}-jobTitle")>${jobName} (${jobTitles[jobName]})</a>`;
+        job.innerHTML = `<a  onclick=applyGeneralFilter("${jobName}-jobTitle")>${jobName} (${jobTitles[jobName]})</a>`;
         jobsDiv.appendChild(job);
     }
 }
