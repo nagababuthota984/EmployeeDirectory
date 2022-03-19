@@ -6,7 +6,8 @@ let employeeData = [
         preferredName:"anthonymorris",
         jobtitle:"Sharepoint Practice Head",
         department:"IT Department",
-        office:"India"
+        office:"India",
+        emailid:"anthonymorris@gmail.com"
     },
     {
         firstName:"Helen",
@@ -14,7 +15,8 @@ let employeeData = [
         preferredName:"helenjimmerman",
         jobtitle:"Operations Manager",
         department:"IT Department",
-        office:"India"
+        office:"India",
+        emailid:"helenjimmerman@gmail.com"
     },
     {
         firstName:"Jonathan",
@@ -22,7 +24,8 @@ let employeeData = [
         preferredName:"jonathansmith",
         jobtitle:"Product Manager",
         department:"IT Department",
-        office:"India"
+        office:"India",
+        emailid:"jonathansmith@gmail.com"
     },
     {
         firstName:"Tami",
@@ -30,7 +33,8 @@ let employeeData = [
         preferredName:"tamihopkins",
         jobtitle:"Lead Engineer Dot Net",
         department:"IT Department",
-        office:"India"
+        office:"India",
+        emailid:"tamihopkins@gmail.com"
     },
     {
         firstName:"Franklin",
@@ -38,7 +42,8 @@ let employeeData = [
         preferredName:"franklinhumark",
         jobtitle:"Network Engineer",
         department:"IT Department",
-        office:"India"
+        office:"India",
+        emailid:"franklinhumark@gmail.com"
     },
     {
         firstName:"Angelina",
@@ -46,7 +51,8 @@ let employeeData = [
         preferredName:"angelinabailey",
         jobtitle:"Talent Magnet Jr.",
         department:"HR Department",
-        office:"India"
+        office:"India",
+        emailid:"angelinabailey@gmail.com"
     },
     {
         firstName:"Robert",
@@ -54,7 +60,8 @@ let employeeData = [
         preferredName:"robertmitchell",
         jobtitle:"Software Engineer",
         department:"IT Department",
-        office:"India"
+        office:"India",
+        emailid:"robertmitchell@gmail.com"
     },
     {
         firstName:"Olivia",
@@ -62,7 +69,8 @@ let employeeData = [
         preferredName:"oliviawatson",
         jobtitle:"UI Designer",
         department:"UX Department",
-        office:"Seattle"
+        office:"Seattle",
+        emailid:"oliviawatson@gmail.com"
     }
 ]
 let filteredEmployees = [];
@@ -142,6 +150,7 @@ function createButtonByAsciiCode(ascii_code)
 function filterEmployeesByAlphabet(charOnButton)
 {
     highlightClickedButton(charOnButton);
+    filteredEmployees=[];
     for(const employee of employeeData)
     {
         if(generalFilterName!=''&& generalFilterCategory!='')
@@ -158,7 +167,6 @@ function filterEmployeesByAlphabet(charOnButton)
         }
     }
     displayEmployees(filteredEmployees);
-    filteredEmployees=[];
 
 }
 //reset all the filter values
@@ -245,6 +253,7 @@ function colorizeGeneralFilters(idToHighlight)
 }
 function applyGeneralFilter(filter)
 {
+    filteredEmployees=[];
     button.style.backgroundColor="#01b0fc";
     button.style.color="white";
     button.style.border = "1px solid white";
@@ -259,7 +268,7 @@ function applyGeneralFilter(filter)
         if (currentActiveButton!='') {
             if((employee[generalFilterCategory[0].toLowerCase()]).includes(filter) && (employee.firstName[0].toLowerCase() == currentActiveButton))
             {
-                if(employee in filteredEmployees)
+                if(filteredEmployees.includes(employee))
                 {
                     console.log(employee.firstName + " already there")
                 }
@@ -272,8 +281,9 @@ function applyGeneralFilter(filter)
                 filteredEmployees.push(employee);
         }
     }
+    const ids = filteredEmployees.map(o => o.emailid)
+    filteredEmployees = filteredEmployees.filter(({emailid}, index) => !ids.includes(emailid, index + 1));
     displayEmployees(filteredEmployees);
-    filteredEmployees = [];
 
     
 }
@@ -283,45 +293,19 @@ function applySearchFilter()
     filterByCategory = document.getElementById("filter-input").value;
     if(searchKeyword!='')
     {
-        for(let employee of employeeData)
-        {
-            if (currentActiveButton!='' && generalFilterCategory[0]!='' && generalFilterName!='') 
-            {
-                console.log((employee[filterByCategory].toLowerCase()).includes(searchKeyword.toLowerCase()));
-                if((employee[generalFilterCategory[0].toLowerCase()]).includes(generalFilterName) && (employee.firstName[0].toLowerCase() == currentActiveButton) && (employee[filterByCategory].toLowerCase()).includes(searchKeyword.toLowerCase()))
-                {
-                    filteredEmployees.push(employee);
-                }
-            }
-            else if(generalFilterCategory!='' && generalFilterName!='')
-            {
-                if (employee[generalFilterCategory[0].toLowerCase()].includes(generalFilterName) && (employee[generalFilterCategory[0].toLowerCase()]).includes(searchKeyword.toLowerCase()))
-                {
-                    filteredEmployees.push(employee);
-                }
-            }
-            else if(currentActiveButton!='')
-            {
-                if ((employee.firstName[0].toLowerCase() == currentActiveButton) && (employee[filterByCategory[0].toLowerCase()].includes(searchKeyword.toLowerCase()))) 
-                {
-                    filteredEmployees.push(employee);
-                }
-            }
-            else
-            {
-                if((employee[filterByCategory].toLowerCase()).includes(searchKeyword.toLowerCase()))
-                {
-                    filteredEmployees.push(employee);
-                }
-            }
-        }
-        displayEmployees(filteredEmployees);
-        filteredEmployees=[];
-
+       let searchFilteredEmployees=[]
+       for(let employee of filteredEmployees)
+       {
+           if(employee[filterByCategory].toLowerCase().includes(searchKeyword))
+           {
+                searchFilteredEmployees.push(employee);
+           }
+       }
+       displayEmployees(searchFilteredEmployees);
     }
     else
     {
-        applyGeneralFilter(generalFilterName+"-"+generalFilterCategory);
+        displayEmployees(filteredEmployees);
     }
 }
 function loadFilters()
