@@ -51,7 +51,7 @@ ul
 }
 .welcome
 {
-    color:#01b0fc;
+    color:rgb(1, 176, 252);
     font-weight:350;
     margin:inherit;
     display: inline-block;
@@ -85,10 +85,16 @@ ul
     margin: 35px 0px 0px 0px;
     float:left;
 }
+.side-navbar li
+{
+    width: fit-content;
+    padding: 0px 2px 2px 1px;
+}
+
 .side-navbar h4,a
 {
     margin:0;
-    text-decoration: none;
+    text-decoration:none;
     color:black;
 }
 .side-navbar a
@@ -189,7 +195,7 @@ ul
 }
 .filter-input
 {
-    height:35px;
+    height:30px;
     width: 145px;
 }
 .add-employee
@@ -203,7 +209,7 @@ ul
     color:white;
     font-family:'Segoe ui';
     width: 125px;
-    height: 35px;
+    height: 33px;
     border:none;
     font-weight:600;
 }
@@ -244,6 +250,13 @@ ul
     vertical-align: top;
     margin-left: 10px;
 }
+.emp-details h5,p
+{
+    width: 135px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+} 
 .emp-name
 {
     margin: -3px 0px 2px 0px;
@@ -311,7 +324,7 @@ ul
 }
 .add-btn
 {
-    background-color: rgb(105,186,0);
+    background-color: #01b0fc;
     color:white;
     font-family:'Segoe ui';
     width: 125px;
@@ -323,9 +336,9 @@ ul
 }
 .add-btn:hover
 {
-    color: rgb(105,186,0);
+    color: #01b0fc;
     background-color:white;
-    border:2px solid rgb(105,186,0);
+    border:2px solid #01b0fc;
 }
 .buttons
 {
