@@ -7,7 +7,9 @@ let employeeData = [
         jobtitle:"Sharepoint Practice Head",
         department:"IT Department",
         office:"India",
-        emailid:"anthonymorris@gmail.com"
+        emailid:"anthonymorris@gmail.com",
+        phone:9001018852,
+        skypeid:"nahdndiqk"
     },
     {
         firstName:"Helen",
@@ -16,7 +18,9 @@ let employeeData = [
         jobtitle:"Operations Manager",
         department:"IT Department",
         office:"India",
-        emailid:"helenjimmerman@gmail.com"
+        emailid:"helenjimmerman@gmail.com",
+        phone:9001018853,
+        skypeid:"nahdndirl"
     },
     {
         firstName:"Jonathan",
@@ -25,7 +29,9 @@ let employeeData = [
         jobtitle:"Product Manager",
         department:"IT Department",
         office:"India",
-        emailid:"jonathansmith@gmail.com"
+        emailid:"jonathansmith@gmail.com",
+        phone:9001018854,
+        skypeid:"nahdndism"
     },
     {
         firstName:"Tami",
@@ -34,7 +40,9 @@ let employeeData = [
         jobtitle:"Lead Engineer Dot Net",
         department:"IT Department",
         office:"India",
-        emailid:"tamihopkins@gmail.com"
+        emailid:"tamihopkins@gmail.com",
+        phone:9001018855,
+        skypeid:"nahdnditn"
     },
     {
         firstName:"Franklin",
@@ -43,7 +51,9 @@ let employeeData = [
         jobtitle:"Network Engineer",
         department:"IT Department",
         office:"India",
-        emailid:"franklinhumark@gmail.com"
+        emailid:"franklinhumark@gmail.com",
+        phone:9001018856,
+        skypeid:"nahdndiuo"
     },
     {
         firstName:"Angelina",
@@ -52,7 +62,9 @@ let employeeData = [
         jobtitle:"Talent Magnet Jr.",
         department:"HR Department",
         office:"India",
-        emailid:"angelinabailey@gmail.com"
+        emailid:"angelinabailey@gmail.com",
+        phone:9001018857,
+        skypeid:"nahdndivp"
     },
     {
         firstName:"Robert",
@@ -61,7 +73,9 @@ let employeeData = [
         jobtitle:"Software Engineer",
         department:"IT Department",
         office:"India",
-        emailid:"robertmitchell@gmail.com"
+        emailid:"robertmitchell@gmail.com",
+        phone:9001018858,
+        skypeid:"nahdndiwq"
     },
     {
         firstName:"Olivia",
@@ -70,7 +84,9 @@ let employeeData = [
         jobtitle:"UI Designer",
         department:"UX Department",
         office:"Seattle",
-        emailid:"oliviawatson@gmail.com"
+        emailid:"oliviawatson@gmail.com",
+        phone:9001018859,
+        skypeid:"nahdndixr"
     }
 ]
 let filteredEmployees = [];
@@ -390,9 +406,8 @@ function addEmployee()
    
 
 }
-function openEditForm(employee)
+function openEditForm(emailid)
 {
-    
     const popup = document.getElementById("editEmployeeDiv");
     if(popup.style.display == "block")
      {
@@ -401,15 +416,17 @@ function openEditForm(employee)
      }   
     else
     {
+        let employee = employeeData.filter( emp => emp.emailid == emailid);
+        console.log(employee);
         popup.style.display = "block";
-        document.getElementById("newFirstName").value=employee.firstName;
-        document.getElementById("newLastName").value=employee.lastName;
-        document.getElementById("newOffice").value=employee.office;
-        document.getElementById("newDepartment").value=employee.department;
-        document.getElementById("newEmail").value=employee.email;
-        document.getElementById("newPhone").value=employee.phone;
-        document.getElementById("newSkypeId").value=employee.skypeId;
-        document.getElementById("newJobTitle").value=employee.jobTitle;
+        document.getElementById("newFirstName").value=employee[0].firstName;
+        document.getElementById("newLastName").value=employee[0].lastName;
+        document.getElementById("newOffice").value=employee[0].office;
+        document.getElementById("newDepartment").value=employee[0].department;
+        document.getElementById("newEmail").value=employee[0].emailid;
+        document.getElementById("newPhone").value=employee[0].phone;
+        document.getElementById("newSkypeId").value=employee[0].skypeid;
+        document.getElementById("newJobTitle").value=employee[0].jobtitle;
         document.querySelector(".container").style.filter="blur(8px)";     
     }
 }
@@ -506,7 +523,7 @@ function displayEmployees(data)
         let imageDiv = document.createElement("div");
         let detailsDiv = document.createElement("div");
         employeeCard.className = "employee-card";
-        employeeCard.setAttribute("onclick","openEditForm()");
+        employeeCard.setAttribute("onclick",`openEditForm('${employee.emailid}')`);
         imageDiv.className = "emp-img";
         imageDiv.innerHTML=`<img src='Images/${employee.firstName.toLowerCase()}-${employee.lastName.toLowerCase()}.png' onerror="this.onerror=null; this.src='/Images/default-dp.png'">`;
         employeeCard.appendChild(imageDiv);
