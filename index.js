@@ -266,12 +266,8 @@ function applyGeneralFilter(filter)
     for(let employee of employeeData)
     {
         if (currentActiveButton!='') {
-            if((employee[generalFilterCategory[0].toLowerCase()]).includes(filter) && (employee.firstName[0].toLowerCase() == currentActiveButton))
+            if((employee[generalFilterCategory[0].toLowerCase()]).includes(filter) && (employee.firstName[0].toLowerCase() == currentActiveButton) && (employee[filterByCategory].toLowerCase().includes(searchKeyword)))
             {
-                if(filteredEmployees.includes(employee))
-                {
-                    console.log(employee.firstName + " already there")
-                }
                 filteredEmployees.push(employee);
             }
         }
