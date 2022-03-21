@@ -562,7 +562,7 @@ function displayEmployees(data)
         employeeCard.className = "employee-card";
         employeeCard.setAttribute("onclick",`openEditForm('${employee.emailid}')`);
         imageDiv.className = "emp-img";
-        imageDiv.innerHTML=`<img src='Images/${employee.pic}' onerror="this.onerror=null; this.src='/Images/default-dp.png'">`;
+        imageDiv.innerHTML=`<img src='Images/${employee.pic}' onerror="this.onerror=null; this.src='Images/default-dp.png'">`;
         employeeCard.appendChild(imageDiv);
         detailsDiv.className = "emp-details";
         detailsDiv.innerHTML = `<h5 class='emp-name'>${employee.firstName} ${employee.lastName}</h5><p class='emp-jobtitle'>${employee.jobtitle}</p><p class='emp-dept'>${employee.department}</p><h6 class='extras'>&#xf098;&nbsp &#xf0e0;&nbsp &#xf075;&nbsp &#xf005;&nbsp &#xf004;</h6>`;
