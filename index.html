@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/solid.css">
     <script src="index.js"></script>
 </head>
-<body>
+<body onload="loadAllEmployees()">
     <div class="container">
         <div class="header">
             <div class="logo"><img  src="Images/saketa-logo.jpg"></div>
@@ -80,14 +80,11 @@
                     <span><b>Note:</b> Please use advanced filter options to refine your results.</span>
                 </div>
                 <div class="employee-list">
-                    <script>
-                        loadAllEmployees();
-                    </script>
                 </div>
             </div>
         </div>
     </div>
-    <div  class="popup">
+    <div   class="popup">
         <div class="add-emp-heading"><h2>New Employee Details</h2></div>
         <div class="seperator"></div>
         <form class="add-emp-form">
