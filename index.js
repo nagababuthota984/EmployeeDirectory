@@ -1,4 +1,3 @@
-
 let employeeData = [
     {
         firstName:"Anthony",
@@ -9,7 +8,8 @@ let employeeData = [
         office:"India",
         emailid:"anthonymorris@gmail.com",
         phone:9001018852,
-        skypeid:"nahdndiqk"
+        skypeid:"nahdndiqk",
+        pic:"anthony-morris.png"
     },
     {
         firstName:"Helen",
@@ -20,7 +20,8 @@ let employeeData = [
         office:"India",
         emailid:"helenjimmerman@gmail.com",
         phone:9001018853,
-        skypeid:"nahdndirl"
+        skypeid:"nahdndirl",
+        pic:"helen-jimmerman.png"
     },
     {
         firstName:"Jonathan",
@@ -31,7 +32,8 @@ let employeeData = [
         office:"India",
         emailid:"jonathansmith@gmail.com",
         phone:9001018854,
-        skypeid:"nahdndism"
+        skypeid:"nahdndism",
+        pic:"jonathan-smith.png"
     },
     {
         firstName:"Tami",
@@ -42,7 +44,8 @@ let employeeData = [
         office:"India",
         emailid:"tamihopkins@gmail.com",
         phone:9001018855,
-        skypeid:"nahdnditn"
+        skypeid:"nahdnditn",
+        pic:"tami-hopkins.png"
     },
     {
         firstName:"Franklin",
@@ -53,7 +56,8 @@ let employeeData = [
         office:"India",
         emailid:"franklinhumark@gmail.com",
         phone:9001018856,
-        skypeid:"nahdndiuo"
+        skypeid:"nahdndiuo",
+        pic:"franklin-humark.png"
     },
     {
         firstName:"Angelina",
@@ -64,7 +68,9 @@ let employeeData = [
         office:"India",
         emailid:"angelinabailey@gmail.com",
         phone:9001018857,
-        skypeid:"nahdndivp"
+        skypeid:"nahdndivp",
+        pic:"angelina-bailey.png"
+
     },
     {
         firstName:"Robert",
@@ -75,7 +81,8 @@ let employeeData = [
         office:"India",
         emailid:"robertmitchell@gmail.com",
         phone:9001018858,
-        skypeid:"nahdndiwq"
+        skypeid:"nahdndiwq",
+        pic:"robert-mitchell.png"
     },
     {
         firstName:"Olivia",
@@ -86,7 +93,8 @@ let employeeData = [
         office:"Seattle",
         emailid:"oliviawatson@gmail.com",
         phone:9001018859,
-        skypeid:"nahdndixr"
+        skypeid:"nahdndixr",
+        pic:"olivia-watson.png"
     }
 ]
 let filteredEmployees = [];
@@ -95,11 +103,12 @@ let generalFilterName = '';
 let generalFilterCategory = '';
 let searchKeyword='';
 let filterByCategory='';
-let ids = ["firstName","lastName","email","jobTitle","office","department","phone","skypeId"];
+let ids = ["firstName","lastName","emailid","jobtitle","office","department","phone","skypeid"];
 let newIds = ["newFirstName","newLastName","newEmail","newJobTitle","newOffice","newDepartment","newPhone","newSkypeId"];
 let offices = [];
 let departments = [];
 let jobTitles=[];
+
 //displays add employee popup when called.
 function displayPopup()
 {
@@ -135,7 +144,7 @@ function closePopup()
 function closeEditPopup()
 {
     document.querySelector(".container").style.filter="none";     
-    document.querySelector(".add-emp-form").reset();
+    document.querySelector("#editEmpForm").reset();
     document.getElementById("editEmployeeDiv").style.display = "none";
     leftformFields = document.querySelector(".left").children;
     rightformFields = document.querySelector(".right").children;
@@ -305,19 +314,30 @@ function applySearchFilter()
     filterByCategory = document.getElementById("filter-input").value;
     if(searchKeyword!='')
     {
-       let searchFilteredEmployees=[]
-       for(let employee of filteredEmployees)
-       {
-           if(employee[filterByCategory].toLowerCase().includes(searchKeyword))
-           {
+        console.log(filterByCategory);
+        console.log(searchKeyword.toString());
+        let searchFilteredEmployees=[]
+        let dataToFilter=[]
+        if(filteredEmployees.length==0)  
+            dataToFilter=employeeData;
+        else 
+            dataToFilter = filteredEmployees;
+        for(let employee of dataToFilter)
+        {
+            if(employee[filterByCategory].toString().toLowerCase().includes(searchKeyword.toString()))
+            {
                 searchFilteredEmployees.push(employee);
-           }
-       }
-       displayEmployees(searchFilteredEmployees);
+            }
+        }
+        displayEmployees(searchFilteredEmployees);
     }
     else
     {
-        displayEmployees(filteredEmployees);
+        if(filteredEmployees.length==0)
+            loadAllEmployees();
+        else
+            displayEmployees(filteredEmployees);
+
     }
 }
 function loadFilters()
@@ -353,6 +373,7 @@ function loadFilters()
 }
 function countFilters()
 {
+    departments=[],offices=[],jobTitles=[];
     for(let employee of employeeData)
     {
         if(employee.department in departments)
@@ -384,7 +405,7 @@ function countFilters()
 function addEmployee()
 {
     let data = validateEmployeeDetails(ids);
-     if(!data[0]) 
+    if(!data[0]) 
     {
         employeeData.push(data[1]);
         if(data[1].department in departments)
@@ -396,11 +417,12 @@ function addEmployee()
         else
             offices[data[1].office] = 1;
         if(data[1].jobTitle in jobTitles)
-            jobTitles[data[1].jobTitle] +=1;
+            jobTitles[data[1].jobtitle] +=1;
         else
-            jobTitles[data[1].jobTitle] = 1;
+            jobTitles[data[1].jobtitle] = 1;
         loadFilters();
         closePopup();
+        console.log(employeeData);
         displayEmployees(employeeData);
     }
    
@@ -417,7 +439,6 @@ function openEditForm(emailid)
     else
     {
         let employee = employeeData.filter( emp => emp.emailid == emailid);
-        console.log(employee);
         popup.style.display = "block";
         document.getElementById("newFirstName").value=employee[0].firstName;
         document.getElementById("newLastName").value=employee[0].lastName;
@@ -430,19 +451,35 @@ function openEditForm(emailid)
         document.querySelector(".container").style.filter="blur(8px)";     
     }
 }
-function validateEmployeeDetails(ids)
+function saveChanges()
+{
+    let formData = validateEmployeeDetails(newIds);
+    let index = employeeData.findIndex(emp => emp.emailid==formData[1].newEmail);
+    if (confirm("Changes once saved cannot be reverted back. Press OK to save the changes.")==true) {
+        employeeData[index].firstName=formData[1].newFirstName;
+        employeeData[index].lastName=formData[1].newLastName;
+        employeeData[index].office=formData[1].newOffice;
+        employeeData[index].department=formData[1].newDepartment;
+        employeeData[index].phone=formData[1].newPhone;
+        employeeData[index].skypeid=formData[1].newSkypeId;
+    }
+    loadFilters();
+    loadAllEmployees();
+    closeEditPopup();
+}
+function validateEmployeeDetails(idsOfForm)
 {
     let isErrorOccured=false;
     let formData = {};
-    for(let id of ids)
+    for(let id of idsOfForm)
     {
         formData[id] = document.getElementById(id).value;
     }
-    let namePattern = /^[A-Za-z]+$/;
+    let namePattern = /^[A-Za-z\s]+$/;
     let emailPattern = /[A-Za-z0-9]*@[A-Za-z]*.[A-Za-z]+$/;
     let skypeIdPattern = /[A-Za-z0-9]+$/;
     let contactNumberPattern = /^[0-9]{10}$/;
-    for(let id of ids)
+    for(let id of idsOfForm)
     {
         let errorMsg = document.getElementById(id+"Error");
         if((id.toLowerCase()).includes("email"))
@@ -525,7 +562,7 @@ function displayEmployees(data)
         employeeCard.className = "employee-card";
         employeeCard.setAttribute("onclick",`openEditForm('${employee.emailid}')`);
         imageDiv.className = "emp-img";
-        imageDiv.innerHTML=`<img src='Images/${employee.firstName.toLowerCase()}-${employee.lastName.toLowerCase()}.png' onerror="this.onerror=null; this.src='/Images/default-dp.png'">`;
+        imageDiv.innerHTML=`<img src='Images/${employee.pic}' onerror="this.onerror=null; this.src='/Images/default-dp.png'">`;
         employeeCard.appendChild(imageDiv);
         detailsDiv.className = "emp-details";
         detailsDiv.innerHTML = `<h5 class='emp-name'>${employee.firstName} ${employee.lastName}</h5><p class='emp-jobtitle'>${employee.jobtitle}</p><p class='emp-dept'>${employee.department}</p><h6 class='extras'>&#xf098;&nbsp &#xf0e0;&nbsp &#xf075;&nbsp &#xf005;&nbsp &#xf004;</h6>`;

@@ -66,9 +66,6 @@
                             <option value="preferredName">Preferred Name</option>
                             <option value="firstName" >First name</option>
                             <option value="lastName">Last Name</option>
-                            <option value="jobTitle" >Job Title</option>
-                            <option value="office" >Office</option>
-                            <option value="department" >Department</option>
                             <option value="phone">Phone Number</option>  
                             <option value="skypeId">Skype Id</option>
                             
@@ -99,10 +96,10 @@
                 <div class="error" id="firstNameError"><h7>First name shouldn't contain digits or special characters</h7></div>
                 <input type="text"  id="office" name="office" placeholder="Office"  >
                 <div class="error" id="officeError"><h7>Office shouldn't contain digits or special characters</h7></div>
-                <input type="email"  id="email" name="email" placeholder="Email id"  >
-                <div class="error" id="emailError"><h7>Invalid Email format</h7></div>
-                <input type="text" id="jobTitle" name="jobtitle" placeholder="Job title"  >
-                <div class="error" id="jobTitleError"><h7>Job Title shouldn't contain digits or special characters</h7></div>
+                <input type="email"  id="emailid" name="email" placeholder="Email id"  >
+                <div class="error" id="emailidError"><h7>Invalid Email format</h7></div>
+                <input type="text" id="jobtitle" name="jobtitle" placeholder="Job title"  >
+                <div class="error" id="jobtitleError"><h7>Job Title shouldn't contain digits or special characters</h7></div>
             </div>
             <div class="right">
                 <input type="text" id="lastName" name="lname" placeholder="Last name"  >
@@ -111,8 +108,8 @@
                 <div class="error" id="departmentError"><h7>Invalid Department name.</h7></div>
                 <input type="text" id="phone" name="phone" placeholder="Contact number"  >
                 <div class="error" id="phoneError"><h7>Make sure that you entered correct contact number.</h7></div>
-                <input type="text"  id="skypeId" name="skypeid" placeholder="Skype id"  >
-                <div class="error" id="skypeIdError"><h7>SkypeId shouldn't contain special characters</h7></div>
+                <input type="text"  id="skypeid" name="skypeid" placeholder="Skype id"  >
+                <div class="error" id="skypeidError"><h7>SkypeId shouldn't contain special characters</h7></div>
             </div>
             <div class="buttons">
                 <button type="button" class="add-btn" onclick="addEmployee()" >Add Employee</button>
@@ -129,7 +126,7 @@
                 <div class="error" id="newFirstNameError"><h7>First name shouldn't contain digits or special characters</h7></div>
                 <input type="text"  id="newOffice" name="office" placeholder="Office"  >
                 <div class="error" id="newOfficeError"><h7>Office shouldn't contain digits or special characters</h7></div>
-                <input type="email"  id="newEmail" name="email" placeholder="Email id"  >
+                <input type="email"  id="newEmail" name="email" placeholder="Email id"  disabled>
                 <div class="error" id="newEmailError"><h7>Invalid Email format</h7></div>
                 <input type="text" id="newJobTitle" name="jobtitle" placeholder="Job title"  >
                 <div class="error" id="newJobTitleError"><h7>Job Title shouldn't contain digits or special characters</h7></div>
