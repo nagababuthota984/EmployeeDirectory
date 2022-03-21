@@ -451,98 +451,123 @@ function openEditForm(emailid)
         document.querySelector(".container").style.filter="blur(8px)";     
     }
 }
-function saveChanges()
+function updateEmployeeDetails()
 {
     let formData = validateEmployeeDetails(newIds);
-    let index = employeeData.findIndex(emp => emp.emailid==formData[1].newEmail);
-    if (confirm("Changes once saved cannot be reverted back. Press OK to save the changes.")==true) {
-        employeeData[index].firstName=formData[1].newFirstName;
-        employeeData[index].lastName=formData[1].newLastName;
-        employeeData[index].office=formData[1].newOffice;
-        employeeData[index].department=formData[1].newDepartment;
-        employeeData[index].phone=formData[1].newPhone;
-        employeeData[index].skypeid=formData[1].newSkypeId;
-    }
-    loadFilters();
-    loadAllEmployees();
-    closeEditPopup();
+   if (!formData[0]) {
+        let index = employeeData.findIndex(emp => emp.emailid==formData[1].newEmail);
+        if (confirm("Changes once saved cannot be reverted back. Press OK to save the changes.")==true) {
+            employeeData[index].firstName=formData[1].newFirstName;
+            employeeData[index].lastName=formData[1].newLastName;
+            employeeData[index].office=formData[1].newOffice;
+            employeeData[index].department=formData[1].newDepartment;
+            employeeData[index].phone=formData[1].newPhone;
+            employeeData[index].skypeid=formData[1].newSkypeId;
+        }
+        loadFilters();
+        loadAllEmployees();
+        closeEditPopup();
+   }
 }
-function validateEmployeeDetails(idsOfForm)
+function deleteEmployee()
+{
+    let userEmail = document.getElementById("newEmail").value;
+    if (confirm(`Are you sure you want to delete ${document.getElementById("newFirstName").value}? Press OK to delete.`)) {
+        employeeData = employeeData.filter((employee)=> employee.emailid!=userEmail);
+    }
+    closeEditPopup();
+    loadAllEmployees();
+}
+function validateEmployeeDetails(FormIds)
 {
     let isErrorOccured=false;
     let formData = {};
-    for(let id of idsOfForm)
+    for(let id of FormIds)
     {
         formData[id] = document.getElementById(id).value;
     }
     let namePattern = /^[A-Za-z\s]+$/;
-    let emailPattern = /[A-Za-z0-9]*@[A-Za-z]*.[A-Za-z]+$/;
+    let emailPattern = /[A-Za-z0-9]*@[A-Za-z]*\.[A-Za-z]+$/;
     let skypeIdPattern = /[A-Za-z0-9]+$/;
     let contactNumberPattern = /^[0-9]{10}$/;
-    for(let id of idsOfForm)
+    for(let id of FormIds)
     {
         let errorMsg = document.getElementById(id+"Error");
-        if((id.toLowerCase()).includes("email"))
-        {
-            
-            if(!formData[id].match(emailPattern))
+        if (formData[id]!='') {
+            if((id.toLowerCase()).includes("email"))
             {
-                document.getElementById(id).style.borderColor="red";
-                errorMsg.style.display="block";
-                isErrorOccured=true;
+                
+                if(!formData[id].match(emailPattern))
+                {
+                    document.getElementById(id).style.borderColor="red";
+                    errorMsg.style.display="block";
+                    errorMsg.innerHTML="<h7>Please enter a valid email. Example: joey@yahoo.com</h7>"
+                    isErrorOccured=true;
+                }
+                else
+                {
+                    document.getElementById(id).style.borderColor="gray";
+                    errorMsg.style.display="none";
+                }
+            }
+            else if((id.toLowerCase()).includes("phone"))
+            {
+                if(!formData[id].match(contactNumberPattern))
+                {
+                    document.getElementById(id).style.borderColor="red";
+                    errorMsg.style.display="block";
+                    errorMsg.innerHTML="<h7>Please enter a valid 10 digits contact number.</h7>"
+                    isErrorOccured=true;
+    
+                }
+                else
+                {
+                    document.getElementById(id).style.borderColor="gray";
+                    errorMsg.style.display="none";
+                }
+            }
+            else if((id.toLowerCase()).includes("skypeid"))
+            {
+                if(!formData[id].match(skypeIdPattern))
+                {
+                    document.getElementById(id).style.borderColor="red";
+                    errorMsg.style.display="block";
+                    errorMsg.innerHTML="<h7>Please enter a valid skype ID.</h7>";
+                    isErrorOccured=true;
+    
+                }
+                else
+                {
+                    document.getElementById(id).style.borderColor="gray";
+                    errorMsg.style.display="none";
+                }
             }
             else
             {
-                document.getElementById(id).style.borderColor="gray";
-                errorMsg.style.display="none";
-            }
-        }
-        else if((id.toLowerCase()).includes("phone"))
-        {
-            if(!formData[id].match(contactNumberPattern))
-            {
-                document.getElementById(id).style.borderColor="red";
-                errorMsg.style.display="block";
-                isErrorOccured=true;
-
-            }
-            else
-            {
-                document.getElementById(id).style.borderColor="gray";
-                errorMsg.style.display="none";
-            }
-        }
-        else if((id.toLowerCase()).includes("skypeid"))
-        {
-            if(!formData[id].match(skypeIdPattern))
-            {
-                document.getElementById(id).style.borderColor="red";
-                errorMsg.style.display="block";
-                isErrorOccured=true;
-
-            }
-            else
-            {
-                document.getElementById(id).style.borderColor="gray";
-                errorMsg.style.display="none";
+                if(!formData[id].match(namePattern))   
+                {
+                    
+                    document.getElementById(id).style.borderColor="red";
+                    errorMsg.style.display="block";
+                    errorMsg.innerHTML=`<h7>${document.getElementById(id).placeholder} shouldn't contain special characters/digits</h7>`;
+                    isErrorOccured=true;
+    
+                }
+                else
+                {
+                    document.getElementById(id).style.borderColor="gray";
+                    errorMsg.style.display="none";
+                }
             }
         }
         else
         {
-            if(!formData[id].match(namePattern))   
-            {
-                
-                document.getElementById(id).style.borderColor="red";
-                errorMsg.style.display="block";
-                isErrorOccured=true;
-
-            }
-            else
-            {
-                document.getElementById(id).style.borderColor="gray";
-                errorMsg.style.display="none";
-            }
+            document.getElementById(id).style.borderColor="red";
+            errorMsg.style.display="block";
+            errorMsg.innerHTML = `<h7>${document.getElementById(id).placeholder} is required.</h7>`;
+            isErrorOccured=true;
         }
+        
     }
     return [isErrorOccured,formData];
 }

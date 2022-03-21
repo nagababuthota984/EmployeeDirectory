@@ -306,6 +306,8 @@ ul
     flex-wrap: wrap;
     justify-content: center;
     margin-top: 20px;
+    border:none;
+    
 }
 .popup input
 {
@@ -367,6 +369,7 @@ ul
 {
     font-size: 10px;
     font-weight: 600;
+    margin-left: 6px;
 }
 .add-emp-heading
 {
@@ -382,4 +385,16 @@ ul
 {
     color:red;
     display:none;
+}
+
+.close-btn
+{
+    float: right;
+    margin: -45px 40px 0px 0px;
+    height:16px;
+    width:16px;
+    cursor: pointer;
+    border:1px solid rgb(0,0,0,0.4);
+    padding:2px;
+    border-radius:3px;
 }

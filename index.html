@@ -90,23 +90,23 @@
         <form class="add-emp-form">
             <div class="left">
                 <input type="text"  id="firstName" name="fname" placeholder="First name"  >
-                <div class="error" id="firstNameError"><h7>First name shouldn't contain digits or special characters</h7></div>
+                <div class="error" id="firstNameError"></div>
                 <input type="text"  id="office" name="office" placeholder="Office"  >
-                <div class="error" id="officeError"><h7>Office shouldn't contain digits or special characters</h7></div>
+                <div class="error" id="officeError"></div>
                 <input type="email"  id="emailid" name="email" placeholder="Email id"  >
-                <div class="error" id="emailidError"><h7>Invalid Email format</h7></div>
+                <div class="error" id="emailidError"></div>
                 <input type="text" id="jobtitle" name="jobtitle" placeholder="Job title"  >
-                <div class="error" id="jobtitleError"><h7>Job Title shouldn't contain digits or special characters</h7></div>
+                <div class="error" id="jobtitleError"></div>
             </div>
             <div class="right">
                 <input type="text" id="lastName" name="lname" placeholder="Last name"  >
-                <div class="error" id="lastNameError"><h7>Last name shouldn't contain digits or special characters</h7></div>
+                <div class="error" id="lastNameError"></div>
                 <input type="text" id="department" name="dept" placeholder="Department"  >
-                <div class="error" id="departmentError"><h7>Invalid Department name.</h7></div>
+                <div class="error" id="departmentError"></div>
                 <input type="text" id="phone" name="phone" placeholder="Contact number"  >
-                <div class="error" id="phoneError"><h7>Make sure that you entered correct contact number.</h7></div>
+                <div class="error" id="phoneError"></div>
                 <input type="text"  id="skypeid" name="skypeid" placeholder="Skype id"  >
-                <div class="error" id="skypeidError"><h7>SkypeId shouldn't contain special characters</h7></div>
+                <div class="error" id="skypeidError"></div>
             </div>
             <div class="buttons">
                 <button type="button" class="add-btn" onclick="addEmployee()" >Add Employee</button>
@@ -116,31 +116,32 @@
     </div>
     <div id="editEmployeeDiv" class="popup">
         <div id="editEmpHeading" class="add-emp-heading"><h2>Edit Employee Details</h2></div>
+        <div><img src="Images/close.png" title="Close" class="close-btn" onclick="closeEditPopup()"></div>
         <div class="seperator"></div>
         <form id="editEmpForm" class="add-emp-form">
             <div class="left">
-                <input type="text"  id="newFirstName" name="fname" placeholder="First name"  >
-                <div class="error" id="newFirstNameError"><h7>First name shouldn't contain digits or special characters</h7></div>
+                <input type="text"  id="newFirstName" name="fname" placeholder="First name"></label>
+                <div class="error" id="newFirstNameError"></div>
                 <input type="text"  id="newOffice" name="office" placeholder="Office"  >
-                <div class="error" id="newOfficeError"><h7>Office shouldn't contain digits or special characters</h7></div>
+                <div class="error" id="newOfficeError"></div>
                 <input type="email"  id="newEmail" name="email" placeholder="Email id"  disabled>
-                <div class="error" id="newEmailError"><h7>Invalid Email format</h7></div>
+                <div class="error" id="newEmailError"></div>
                 <input type="text" id="newJobTitle" name="jobtitle" placeholder="Job title"  >
-                <div class="error" id="newJobTitleError"><h7>Job Title shouldn't contain digits or special characters</h7></div>
+                <div class="error" id="newJobTitleError"></div>
             </div>
             <div class="right">
                 <input type="text" id="newLastName" name="lname" placeholder="Last name"  >
-                <div class="error" id="newLastNameError"><h7>Last name shouldn't contain digits or special characters</h7></div>
+                <div class="error" id="newLastNameError"></div>
                 <input type="text" id="newDepartment" name="dept" placeholder="Department"  >
-                <div class="error" id="newDepartmentError"><h7>Invalid Department name.</h7></div>
+                <div class="error" id="newDepartmentError"></div>
                 <input type="text" id="newPhone" name="phone" placeholder="Contact number"  >
-                <div class="error" id="newPhoneError"><h7>Make sure that you entered correct contact number.</h7></div>
+                <div class="error" id="newPhoneError"></div>
                 <input type="text"  id="newSkypeId" name="skypeid" placeholder="Skype id"  >
-                <div class="error" id="newSkypeIdError"><h7>SkypeId shouldn't contain special characters</h7></div>
+                <div class="error" id="newSkypeIdError"></div>
             </div>
             <div class="buttons">
-                <button type="button" class="add-btn" onclick="saveChanges()" >Save Changes</button>
-                <button type="button" onclick="closeEditPopup()" class="cancel-btn" >Cancel</button>
+                <button type="button" class="add-btn" onclick="updateEmployeeDetails()" >Update</button>
+                <button type="button" onclick="deleteEmployee()" class="cancel-btn" >Delete</button>
             </div>
         </form>
     </div>
