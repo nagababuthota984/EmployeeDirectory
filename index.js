@@ -591,7 +591,10 @@ function validateEmployeeDetails(FormIds)
         {
             document.getElementById(id).style.borderColor="red";
             errorMsg.style.display="block";
-            errorMsg.innerHTML = `<h7>${document.getElementById(id).placeholder} is required.</h7>`;
+            if(document.getElementById(id).placeholder!=undefined)
+                errorMsg.innerHTML = `<h7>${document.getElementById(id).placeholder} is required.</h7>`;
+            else
+                errorMsg.innerHTML = `<h7>${id} is required</h7>`
             isErrorOccured=true;
         }
         
