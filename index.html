@@ -57,18 +57,16 @@
                     <div class="search-keyword">
                         <form>
                             <span class="search-label">Search</span>
-                            <input type="search" id="search-input" onkeyup="applySearchFilter()" class="search-input" placeholder="&#xF002; Enter any keyword" >
+                            <input type="search" id="searchInput" onsearch="applySearchFilter()" onkeyup="applySearchFilter()" class="search-input" placeholder="&#xF002; Enter any keyword" >
                         </form>
                     </div>
                     <div class="filter-by">
                         <span class="filter-label">Filter by</span>
-                        <select onchange="applySearchFilter()" id="filter-input" class="filter-input" name="filter">
-                            <option value="preferredName">Preferred Name</option>
+                        <select onchange="applySearchFilter()" id="filterInput" class="filter-input" name="filter">
                             <option value="firstName" >First name</option>
                             <option value="lastName">Last Name</option>
                             <option value="phone">Phone Number</option>  
                             <option value="skypeId">Skype Id</option>
-                            
                         </select>
                     </div>
                     
@@ -84,7 +82,7 @@
             </div>
         </div>
     </div>
-    <div   class="popup">
+    <div class="popup">
         <div class="add-emp-heading"><h2>New Employee Details</h2></div>
         <div class="seperator"></div>
         <form class="add-emp-form">
@@ -95,13 +93,38 @@
                 <div class="error" id="officeError"></div>
                 <input type="email"  id="emailid" name="email" placeholder="Email id"  >
                 <div class="error" id="emailidError"></div>
-                <input type="text" id="jobtitle" name="jobtitle" placeholder="Job title"  >
+                <select  id="jobtitle" placeholder="Job Title" name="jobtitle" required>
+                    <option value="">Job Title</option>
+                    <option value="CEO">CEO</option>
+                    <option value="CTO">CTO</option>
+                    <option value="Product Manager">Product Manager</option>
+                    <option value="Chief Architect">Chief Architect</option>  
+                    <option value="Software Architect">Software Architect</option>
+                    <option value="Senior Software Developer">Senior Software Developer</option>
+                    <option value="Software Developer">Software Developer</option>
+                    <option value="Junior Software Developer">Junior Software Developer</option>
+                    <option value="Software Engineer">Software Engineer</option>
+                    <option value="Lead Engineer Dot Net">Lead Engineer Dot Net</option>
+                    <option value="Network Engineer">Network Engineer</option>
+                    <option value="Talent Magnet Jr.">Talent Magnet Jr.</option>
+                    <option value="UI Designer">UI Designer</option>
+                    <option value="Sharepoint Practice Head">Sharepoint Practice Head</option>
+                    <option value="Intern">Intern</option>
+                </select>
                 <div class="error" id="jobtitleError"></div>
             </div>
             <div class="right">
                 <input type="text" id="lastName" name="lname" placeholder="Last name"  >
                 <div class="error" id="lastNameError"></div>
-                <input type="text" id="department" name="dept" placeholder="Department"  >
+                <select  id="department" name="dept" placeholder="Department" required>
+                    <option value="">Department</option>
+                    <option value="IT Department">IT Department</option>
+                    <option value="HR Department" >HR Department</option>
+                    <option value="UX Department">UX Department</option>
+                    <option value="Accounts & Finance">Accounts & Finance</option>  
+                    <option value="Product Development">Product Development</option>
+                    <option value="Admin & Security">Admin & Security</option>
+                </select>
                 <div class="error" id="departmentError"></div>
                 <input type="text" id="phone" name="phone" placeholder="Contact number"  >
                 <div class="error" id="phoneError"></div>
@@ -119,23 +142,57 @@
         <div><img src="Images/close.png" title="Close" class="close-btn" onclick="closeEditPopup()"></div>
         <div class="seperator"></div>
         <form id="editEmpForm" class="add-emp-form">
-            <div class="left">
+            <div class="left" id="editEmpFormLeft">
+                <label for="newFirstName">First name</label>
                 <input type="text"  id="newFirstName" name="fname" placeholder="First name"></label>
                 <div class="error" id="newFirstNameError"></div>
+                <label for="newOffice">Office</label>
                 <input type="text"  id="newOffice" name="office" placeholder="Office"  >
                 <div class="error" id="newOfficeError"></div>
+                <label for="newEmail">Email</label>
                 <input type="email"  id="newEmail" name="email" placeholder="Email id"  disabled>
                 <div class="error" id="newEmailError"></div>
-                <input type="text" id="newJobTitle" name="jobtitle" placeholder="Job title"  >
+                <label for="newJobTitle">Job Title</label>
+                <select  id="newJobTitle" placeholder="Job Title" name="jobtitle" required>
+                    <option value="">Job Title</option>
+                    <option value="CEO">CEO</option>
+                    <option value="CTO">CTO</option>
+                    <option value="Product Manager">Product Manager</option>
+                    <option value="Chief Architect">Chief Architect</option>  
+                    <option value="Software Architect">Software Architect</option>
+                    <option value="Senior Software Developer">Senior Software Developer</option>
+                    <option value="Software Developer">Software Developer</option>
+                    <option value="Junior Software Developer">Junior Software Developer</option>
+                    <option value="Software Engineer">Software Engineer</option>
+                    <option value="Lead Engineer Dot Net">Lead Engineer Dot Net</option>
+                    <option value="Network Engineer">Network Engineer</option>
+                    <option value="Talent Magnet Jr.">Talent Magnet Jr.</option>
+                    <option value="UI Designer">UI Designer</option>
+                    <option value="Operations Manager">Operations Manager</option>
+                    <option value="Sharepoint Practice Head">Sharepoint Practice Head</option>
+                    <option value="Intern">Intern</option>
+                </select>
                 <div class="error" id="newJobTitleError"></div>
             </div>
-            <div class="right">
+            <div class="right" id="editEmpFormRight">
+                <label for="newLastName">Last name</label>
                 <input type="text" id="newLastName" name="lname" placeholder="Last name"  >
                 <div class="error" id="newLastNameError"></div>
-                <input type="text" id="newDepartment" name="dept" placeholder="Department"  >
+                <label for="newDepartment">Department</label>
+                <select  id="newDepartment" name="dept" placeholder="Department" required>
+                    <option value="">Department</option>
+                    <option value="IT Department">IT Department</option>
+                    <option value="HR Department" >HR Department</option>
+                    <option value="UX Department">UX Department</option>
+                    <option value="Accounts & Finance">Accounts & Finance</option>  
+                    <option value="Product Development">Product Development</option>
+                    <option value="Admin & Security">Admin & Security</option>
+                </select>
                 <div class="error" id="newDepartmentError"></div>
+                <label for="newPhone">Contact number</label>
                 <input type="text" id="newPhone" name="phone" placeholder="Contact number"  >
                 <div class="error" id="newPhoneError"></div>
+                <label for="newSkypeId">Skype ID</label>
                 <input type="text"  id="newSkypeId" name="skypeid" placeholder="Skype id"  >
                 <div class="error" id="newSkypeIdError"></div>
             </div>

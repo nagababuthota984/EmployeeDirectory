@@ -108,6 +108,8 @@ let newIds = ["newFirstName","newLastName","newEmail","newJobTitle","newOffice",
 let offices = [];
 let departments = [];
 let jobTitles=[];
+let searchFilteredEmployees=[]
+let buttonFilteredEmployees=[]
 
 //displays add employee popup when called.
 function displayPopup()
@@ -146,8 +148,8 @@ function closeEditPopup()
     document.querySelector(".container").style.filter="none";     
     document.querySelector("#editEmpForm").reset();
     document.getElementById("editEmployeeDiv").style.display = "none";
-    leftformFields = document.querySelector(".left").children;
-    rightformFields = document.querySelector(".right").children;
+    leftformFields = document.getElementById("editEmpFormLeft").children;
+    rightformFields = document.getElementById("editEmpFormRight").children;
     for(let element of leftformFields)
     {
         removeErrorMsg(element);
@@ -156,12 +158,17 @@ function closeEditPopup()
     {
         removeErrorMsg(element);
     }
+    for(let labelId of newIds)
+    {
+        document.querySelector(`label[for=${labelId}]`).style.color="black";
+    }
 }
 function removeErrorMsg(element)
 {
     element.style.borderColor="gray";
     if(element.id.includes("Error"))
         element.style.display="none";
+
 }
 function createButtonByAsciiCode(ascii_code)
 {
@@ -174,24 +181,33 @@ function createButtonByAsciiCode(ascii_code)
 }
 function filterEmployeesByAlphabet(charOnButton)
 {
+    let dataToFilter=[]
+    document.getElementById("searchInput").value='';
     highlightClickedButton(charOnButton);
-    filteredEmployees=[];
-    for(const employee of employeeData)
+    buttonFilteredEmployees=[]
+
+    if(filteredEmployees.length!=0)
+        dataToFilter=filteredEmployees;
+    else
+        dataToFilter=employeeData;
+
+
+    for(const employee of dataToFilter)
     {
         if(generalFilterName!=''&& generalFilterCategory!='')
         {
             if((employee[generalFilterCategory[0].toLowerCase()]).includes(generalFilterName) && (employee.firstName[0].toLowerCase() == currentActiveButton.toLowerCase()))
             {
-                filteredEmployees.push(employee);
+                buttonFilteredEmployees.push(employee);
             }
         }
         else 
         {
             if(employee.firstName[0].toLowerCase()==charOnButton.toLowerCase())
-                filteredEmployees.push(employee);
+                buttonFilteredEmployees.push(employee);
         }
     }
-    displayEmployees(filteredEmployees);
+    displayEmployees(buttonFilteredEmployees);
 
 }
 //reset all the filter values
@@ -200,15 +216,18 @@ function handlePersonButton()
     generalFilterName='';
     generalFilterCategory='';
     filteredEmployees=[];
+    buttonFilteredEmployees=[];
+    searchFilteredEmployees=[];
     colorizePersonButton(); //applies color to the button accordingly.
     colorizeGeneralFilters();
+    document.getElementById("searchInput").value='';
+
 }
 function colorizePersonButton()
 {
     loadAllEmployees();
     colorizeAllButtons();
     currentActiveButton='';
-    
     let btn = document.getElementById("personButton");
     if (btn.style.backgroundColor!="white") {
         btn.style.borderColor="#01b0fc";
@@ -278,7 +297,11 @@ function colorizeGeneralFilters(idToHighlight)
 }
 function applyGeneralFilter(filter)
 {
+    colorizeAllButtons();
+    document.getElementById("searchInput").value='';
     filteredEmployees=[];
+    buttonFilteredEmployees=[];
+    searchFilteredEmployees=[];
     button.style.backgroundColor="#01b0fc";
     button.style.color="white";
     button.style.border = "1px solid white";
@@ -290,38 +313,37 @@ function applyGeneralFilter(filter)
     generalFilterName = filter;
     for(let employee of employeeData)
     {
-        if (currentActiveButton!='') {
-            if((employee[generalFilterCategory[0].toLowerCase()]).includes(filter) && (employee.firstName[0].toLowerCase() == currentActiveButton) && (employee[filterByCategory].toLowerCase().includes(searchKeyword)))
-            {
-                filteredEmployees.push(employee);
-            }
-        }
-        else
+        if((employee[generalFilterCategory[0].toLowerCase()]).includes(filter))
         {
-            if(employee[generalFilterCategory[0].toLowerCase()].includes(filter))
                 filteredEmployees.push(employee);
         }
     }
     const ids = filteredEmployees.map(o => o.emailid)
     filteredEmployees = filteredEmployees.filter(({emailid}, index) => !ids.includes(emailid, index + 1));
     displayEmployees(filteredEmployees);
-
-    
 }
 function applySearchFilter()
 {
-    searchKeyword = document.getElementById("search-input").value;
-    filterByCategory = document.getElementById("filter-input").value;
+    searchKeyword = document.getElementById("searchInput").value;
+    filterByCategory = document.getElementById("filterInput").value;
+    searchFilteredEmployees=[]
     if(searchKeyword!='')
     {
-        console.log(filterByCategory);
-        console.log(searchKeyword.toString());
-        let searchFilteredEmployees=[]
         let dataToFilter=[]
-        if(filteredEmployees.length==0)  
+
+        
+        if(filteredEmployees.length!=0)
+        {
+            if(buttonFilteredEmployees.length!=0 || currentActiveButton!='')
+                dataToFilter=buttonFilteredEmployees;
+            else
+                dataToFilter=filteredEmployees;
+        }
+        else if(buttonFilteredEmployees.length!=0)
+            dataToFilter = buttonFilteredEmployees;
+        else
             dataToFilter=employeeData;
-        else 
-            dataToFilter = filteredEmployees;
+
         for(let employee of dataToFilter)
         {
             if(employee[filterByCategory].toString().toLowerCase().includes(searchKeyword.toString()))
@@ -333,12 +355,14 @@ function applySearchFilter()
     }
     else
     {
-        if(filteredEmployees.length==0)
-            loadAllEmployees();
+        if(buttonFilteredEmployees.length!=0 || currentActiveButton!='')
+            displayEmployees(buttonFilteredEmployees);
         else
             displayEmployees(filteredEmployees);
 
     }
+    const ids = searchFilteredEmployees.map(o => o.emailid)
+    searchFilteredEmployees = searchFilteredEmployees.filter(({emailid}, index) => !ids.includes(emailid, index + 1));
 }
 function loadFilters()
 {
@@ -352,8 +376,8 @@ function loadFilters()
     for(let deptName in departments)
     {
         let dept = document.createElement("li");
-        dept.id = deptName.replaceAll(/\s/g,'-');
-        dept.innerHTML = `<a  onclick=applyGeneralFilter("${deptName.replaceAll(/\s/g,"-")}")>${deptName} (${departments[deptName]})</a>`;
+        dept.id = deptName.replaceAll(/\s/g,'-')+'-department';
+        dept.innerHTML = `<a  onclick=applyGeneralFilter("${deptName.replaceAll(/\s/g,"-")}-department")>${deptName} (${departments[deptName]})</a>`;
         deptDiv.appendChild(dept);
     }
     for(let ofcName in offices)
@@ -422,7 +446,6 @@ function addEmployee()
             jobTitles[data[1].jobtitle] = 1;
         loadFilters();
         closePopup();
-        console.log(employeeData);
         displayEmployees(employeeData);
     }
    
@@ -461,6 +484,7 @@ function updateEmployeeDetails()
             employeeData[index].lastName=formData[1].newLastName;
             employeeData[index].office=formData[1].newOffice;
             employeeData[index].department=formData[1].newDepartment;
+            employeeData[index].jobtitle = formData[1].newJobTitle;
             employeeData[index].phone=formData[1].newPhone;
             employeeData[index].skypeid=formData[1].newSkypeId;
         }
@@ -501,7 +525,7 @@ function validateEmployeeDetails(FormIds)
                 {
                     document.getElementById(id).style.borderColor="red";
                     errorMsg.style.display="block";
-                    errorMsg.innerHTML="<h7>Please enter a valid email. Example: joey@yahoo.com</h7>"
+                    errorMsg.innerHTML="<h7>Please enter a valid email. Example: joey@yahoo.com</h7>";
                     isErrorOccured=true;
                 }
                 else
@@ -544,18 +568,21 @@ function validateEmployeeDetails(FormIds)
             }
             else
             {
-                if(!formData[id].match(namePattern))   
+                if(!(id.toLowerCase().includes("department") || id.toLowerCase().includes("jobtitle")) && !formData[id].match(namePattern))   
                 {
                     
                     document.getElementById(id).style.borderColor="red";
                     errorMsg.style.display="block";
                     errorMsg.innerHTML=`<h7>${document.getElementById(id).placeholder} shouldn't contain special characters/digits</h7>`;
+                    document.querySelector(`label[for=${id}]`).style.color="red";
                     isErrorOccured=true;
     
                 }
                 else
                 {
+
                     document.getElementById(id).style.borderColor="gray";
+                    // document.querySelector(`label[for=${id}]`).style.color="black";
                     errorMsg.style.display="none";
                 }
             }
