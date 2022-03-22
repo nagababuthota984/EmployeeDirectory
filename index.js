@@ -357,8 +357,10 @@ function applySearchFilter()
     {
         if(buttonFilteredEmployees.length!=0 || currentActiveButton!='')
             displayEmployees(buttonFilteredEmployees);
-        else
+        else if(filteredEmployees.length!=0)
             displayEmployees(filteredEmployees);
+        else
+            displayEmployees(employeeData);
 
     }
     const ids = searchFilteredEmployees.map(o => o.emailid)
@@ -574,7 +576,6 @@ function validateEmployeeDetails(FormIds)
                     document.getElementById(id).style.borderColor="red";
                     errorMsg.style.display="block";
                     errorMsg.innerHTML=`<h7>${document.getElementById(id).placeholder} shouldn't contain special characters/digits</h7>`;
-                    document.querySelector(`label[for=${id}]`).style.color="red";
                     isErrorOccured=true;
     
                 }
@@ -582,7 +583,6 @@ function validateEmployeeDetails(FormIds)
                 {
 
                     document.getElementById(id).style.borderColor="gray";
-                    // document.querySelector(`label[for=${id}]`).style.color="black";
                     errorMsg.style.display="none";
                 }
             }
