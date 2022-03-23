@@ -105,9 +105,25 @@ let searchKeyword='';
 let filterByCategory='';
 let ids = ["firstName","lastName","emailid","jobtitle","office","department","phone","skypeid"];
 let newIds = ["newFirstName","newLastName","newEmail","newJobTitle","newOffice","newDepartment","newPhone","newSkypeId"];
-let offices = [];
-let departments = [];
-let jobTitles=[];
+let jobTitles = {
+    "Sharepoint Practice Head":1,
+    "Operations Manager":1,
+    "Product Manager":1,
+    "Lead Engineer Dot Net":1,
+    "Network Engineer":1,
+    "Talent Magnet Jr.":1,
+    "Software Engineer":1,
+    "UI Designer":1
+}
+let offices = {
+    "Seattle":1,
+    "India":1
+}
+let departments = {
+    "IT Department":6,
+    "HR Department":1,
+    "UX Department":1
+}
 let searchFilteredEmployees=[]
 let buttonFilteredEmployees=[]
 
@@ -428,27 +444,59 @@ function countFilters()
         }
     }
 }
+function isEmailExists(emailToCheck)
+{
+    for(let employee of employeeData)
+    {
+        if(employee.emailid==emailToCheck)
+            return true;
+    }
+    return false;
+}
 function addEmployee()
 {
     let data = validateEmployeeDetails(ids);
     if(!data[0]) 
     {
-        employeeData.push(data[1]);
-        if(data[1].department in departments)
-            departments[data[1].department] +=1;
-        else
-            departments[data[1].department] = 1;
-        if(data[1].office in offices)
-            offices[data[1].office] +=1;
-        else
-            offices[data[1].office] = 1;
-        if(data[1].jobTitle in jobTitles)
-            jobTitles[data[1].jobtitle] +=1;
-        else
-            jobTitles[data[1].jobtitle] = 1;
-        loadFilters();
-        closePopup();
-        displayEmployees(employeeData);
+       if (! isEmailExists(data[1].emailid)) 
+       {
+            for(let dept in departments) 
+            {
+                if(dept.toLowerCase().trim()==data[1].department.toLowerCase().trim())
+                {
+                    departments[dept] +=1;
+                    data[1].department=dept;
+                }
+                else
+                    departments[data[1].department] = 1;
+            }
+            for (let ofc in offices) {
+                if(ofc.toLowerCase().trim()==data[1].office.toLowerCase().trim())
+                {
+                    offices[ofc] +=1;
+                    data[1].office=ofc;
+                }
+                else
+                    offices[data[1].office] = 1;
+            }
+            for (let job in jobTitles) {
+                if(job.toLowerCase().trim()==data[1].jobtitle.toLowerCase().trim())
+                {
+                        jobTitles[job] +=1;
+                        data[1].jobtitle=job;
+                }
+                else
+                    jobTitles[data[1].jobtitle] = 1;
+            }
+            employeeData.push(data[1]);
+            loadFilters();
+            closePopup();
+            displayEmployees(employeeData);
+       }
+       else
+       {
+           alert("Employee with same email address already exists.");
+       }
     }
    
 
