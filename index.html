@@ -86,32 +86,48 @@
         <div class="seperator"></div>
         <form class="add-emp-form">
             <div class="left">
-                <label for="firstName">First name</label>
-                <input type="text"  id="firstName" name="fname" placeholder="First name"  >
-                <div class="error" id="firstNameError"></div>
-                <label for="office">Office</label>
-                <input type="text"  id="office" name="office" placeholder="Office"  >
-                <div class="error" id="officeError"></div>
-                <label for="email">Email</label>
-                <input type="email"  id="emailid" name="email" placeholder="Email id"  >
-                <div class="error" id="emailidError"></div>
-                <label class="jobtitle">Job title</label>
-                <input type="text"  id="jobtitle" placeholder="Job Title" name="jobtitle" required>
-                <div class="error" id="jobtitleError"></div>
+                <div class="field">
+                    <label for="firstName">First name</label>
+                    <input type="text"  id="firstName" name="fname" placeholder="First name"  >
+                    <div class="error" id="firstNameError"></div>
+                </div>
+                <div class="field">
+                    <label for="office">Office</label>
+                    <input type="text"  id="office" name="office" placeholder="Office"  >
+                    <div class="error" id="officeError"></div>
+                </div>
+                <div class="field">
+                    <label for="email">Email</label>
+                    <input type="email"  id="emailid" name="email" placeholder="Email id"  >
+                    <div class="error" id="emailidError"></div>
+                </div>
+                <div class="field">
+                    <label class="jobtitle">Job title</label>
+                    <input type="text"  id="jobtitle" placeholder="Job Title" name="jobtitle" required>
+                    <div class="error" id="jobtitleError"></div>
+                </div>
             </div>
             <div class="right">
-                <label for="lastName">Last name</label>
-                <input type="text" id="lastName" name="lname" placeholder="Last name"  >
-                <div class="error" id="lastNameError"></div>
-                <label for="department">Department</label>
-                <input type="text"  id="department" name="dept" placeholder="Department" required>
-                <div class="error" id="departmentError"></div>
-                <label for="phone">Contact number</label>
-                <input type="text" id="phone" name="phone" placeholder="Contact number"  >
-                <div class="error" id="phoneError"></div>
-                <label for="skypeid">Skype ID</label>
-                <input type="text"  id="skypeid" name="skypeid" placeholder="Skype id"  >
-                <div class="error" id="skypeidError"></div>
+                <div class="field">
+                    <label for="lastName">Last name</label>
+                    <input type="text" id="lastName" name="lname" placeholder="Last name"  >
+                    <div class="error" id="lastNameError"></div>
+                </div>
+                <div class="field">
+                    <label for="department">Department</label>
+                    <input type="text"  id="department" name="dept" placeholder="Department" required>
+                    <div class="error" id="departmentError"></div>
+                </div>
+                <div class="field">
+                    <label for="phone">Contact number</label>
+                    <input type="text" id="phone" name="phone" placeholder="Contact number"  >
+                    <div class="error" id="phoneError"></div>
+                </div>
+                <div class="field">
+                    <label for="skypeid">Skype ID</label>
+                    <input type="text"  id="skypeid" name="skypeid" placeholder="Skype id"  >
+                    <div class="error" id="skypeidError"></div>
+                </div>
             </div>
             <div class="buttons">
                 <button type="button" class="add-btn" onclick="addEmployee()" >Add Employee</button>
